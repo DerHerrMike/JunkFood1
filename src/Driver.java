@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Driver {
 
+
     public static void main(String[] args) {
 
         Burger b = new Burger();
@@ -10,13 +11,11 @@ public class Driver {
         Bestellung o = new Bestellung();
         Scanner scanner = new Scanner(System.in);
         boolean quit = false;
-
         printInstructions();
-        while(!quit) {
+        while (!quit) {
             System.out.println("Bitte Auswahl treffen: ");
             int choice = scanner.nextInt();
-            scanner.nextLine();
-            switch(choice) {
+            switch (choice) {
                 case 0:
                     printInstructions();
                     break;
@@ -30,17 +29,16 @@ public class Driver {
                     h.createHotDog();
                     break;
                 case 4:
-                    o.menu();
+                    o.menu(b.getBurgersCreated(), p.getPizzasCreated(), h.getHotdogCreated());
                     break;
                 case 5:
                     quit = true;
-                    break;
             }
         }
     }
 
     public static void printInstructions() {
-        System.out.println("\nPress ");
+        System.out.println("\nBitte wählen: ");
         System.out.println("\t 0 - Auswahl anzeigen.");
         System.out.println("\t 1 - Burger erstellen");
         System.out.println("\t 2 - Pizza erstellen");
@@ -48,7 +46,6 @@ public class Driver {
         System.out.println("\t 4 - Bestellen");
         System.out.println("\t 5 - Beenden");
     }
-
 
 
 }

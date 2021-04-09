@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class Burger extends JunkFood{
+public class Burger extends JunkFood {
 
-private int size;
-private boolean cheese;
+    private int size;
+    private boolean cheese;
+    private List<Burger> burgersCreated = new ArrayList<>();
 
 
     public Burger() {
@@ -15,9 +18,12 @@ private boolean cheese;
         this.cheese = cheese;
     }
 
+    @Override
+    protected Burger createBurger(Scanner scanner) {       //inputmismatch catch fehlt hier
 
-    private Burger createBurger(Scanner scanner){       //inputmismatch catch fehlt hier
-
+        System.out.println();
+        System.out.println("BURGER ERSTELLEN");
+        System.out.println();
         System.out.print("Burger Name: ");
         setName(scanner.nextLine());
         System.out.print("Kalorien: ");
@@ -28,14 +34,16 @@ private boolean cheese;
         setSize(scanner.nextInt());
         System.out.print("Extra Käse (j/n): ");
         String cheeseSelected = scanner.nextLine();
-        if (cheeseSelected.equalsIgnoreCase("j")){
+        if (cheeseSelected.equalsIgnoreCase("j")) {
             setCheese(true);
         }
-        return new Burger(getName(), getCalories(), getPrice(), getSize(),isCheese());
+        Burger b = new Burger(getName(), getCalories(), getPrice(), getSize(), isCheese());
+        burgersCreated.add(b);
+        return b;
     }
 
-    public void displaySize(int size){
-        switch (size){
+    public void displaySize(int size) {
+        switch (size) {
             case 1:
                 System.out.println("Standard");
                 break;
@@ -49,6 +57,12 @@ private boolean cheese;
     }
 
     // G & S
+
+
+    public List<Burger> getBurgersCreated() {
+        return burgersCreated;
+    }
+
     public int getSize() {
         return size;
     }
@@ -106,5 +120,26 @@ private boolean cheese;
     @Override
     public void setPrice(double price) {
         super.setPrice(price);
+    }
+
+    @Override
+    public void createBurger() {
+
+    }
+
+
+    @Override
+    public void createPizza() {
+
+    }
+
+    @Override
+    public void createHotDog() {
+
+    }
+
+    @Override
+    public List<Pizza> getPizzasCreated() {
+        return null;
     }
 }

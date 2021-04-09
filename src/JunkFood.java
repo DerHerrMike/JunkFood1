@@ -1,8 +1,11 @@
+import java.util.List;
+import java.util.Scanner;
+
 public abstract class JunkFood {
 
-private String name;
-private int calories;
-private double price;
+    private String name;
+    private int calories;
+    private double price;
 
     public JunkFood() {
     }
@@ -13,12 +16,14 @@ private double price;
         this.price = price;
     }
 
-    public void printAttributes(){
+    public void printAttributes() {
 
-        System.out.println("Produkt: "+ getName());
-        System.out.println("Preis EUR: "+ getPrice());
-        System.out.println("Kalorien: "+getCalories());
+        System.out.println("Produkt: " + getName());
+        System.out.println("Preis EUR: " + getPrice());
+        System.out.println("Kalorien: " + getCalories());
     }
+
+    protected abstract Burger createBurger(Scanner scanner);
 
     @Override
     public String toString() {
@@ -60,4 +65,6 @@ private double price;
     public abstract void createPizza();
 
     public abstract void createHotDog();
+
+    public abstract List<Pizza> getPizzasCreated();
 }

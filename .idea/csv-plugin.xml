@@ -17,6 +17,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\Driver.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\HotDog.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\Pizza.java">
           <value>
             <Attribute>

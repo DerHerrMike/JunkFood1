@@ -1,11 +1,19 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class HotDog extends JunkFood{
 
 private String sausageName;
 private boolean xxl;
+private List<HotDog> hotdogCreated = new ArrayList<>();
 
     public HotDog() {
+    }
+
+    @Override
+    protected Burger createBurger(Scanner scanner) {
+        return null;
     }
 
     public HotDog(String name, int calories, double price, String sausageName, boolean xxl) {
@@ -17,6 +25,9 @@ private boolean xxl;
 
     private HotDog createHotDog(Scanner scanner){       //inputmismatch catch fehlt hier
 
+        System.out.println();
+        System.out.println("HOTDOG ERSTELLEN");
+        System.out.println();
         System.out.print("Name: ");
         setName(scanner.nextLine());
         System.out.print("Kalorien: ");
@@ -36,7 +47,9 @@ private boolean xxl;
         if (cheeseSelected.equalsIgnoreCase("j")){
             setXxl(true);
         }
-        return new HotDog(getName(), getCalories(), getPrice(), getSausageName(),isXxl());
+        HotDog h = new HotDog(getName(), getCalories(), getPrice(), getSausageName(),isXxl());
+        hotdogCreated.add(h);
+        return h;
     }
 
     //G & S
@@ -55,6 +68,10 @@ private boolean xxl;
 
     public void setXxl(boolean xxl) {
         this.xxl = xxl;
+    }
+
+    public List<HotDog> getHotdogCreated() {
+        return hotdogCreated;
     }
 
     @Override
@@ -78,5 +95,10 @@ private boolean xxl;
     @Override
     public void createHotDog() {
 
+    }
+
+    @Override
+    public List<Pizza> getPizzasCreated() {
+        return null;
     }
 }

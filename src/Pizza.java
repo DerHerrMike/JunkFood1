@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Pizza extends JunkFood{
 
 private int durchmesser;
 private boolean isVeggy;
+private List<Pizza> pizzasCreated = new ArrayList<>();
 
     public Pizza() {
     }
@@ -38,13 +41,20 @@ private boolean isVeggy;
         if (veggieSelected.equalsIgnoreCase("j")){
             setVeggy(true);
         }
-        return new Pizza(getName(), getCalories(), getPrice(), getDurchmesser(),isVeggy());
+        Pizza p = new Pizza(getName(), getCalories(), getPrice(), getDurchmesser(),isVeggy());
+        pizzasCreated.add(p);
+        return p;
     }
 
 
     @Override
     public void printAttributes() {
         super.printAttributes();
+    }
+
+    @Override
+    protected Burger createBurger(Scanner scanner) {
+        return null;
     }
 
     @Override
@@ -91,6 +101,11 @@ private boolean isVeggy;
     @Override
     public void createHotDog() {
 
+    }
+
+    @Override
+    public List<Pizza> getPizzasCreated() {
+        return null;
     }
 
 

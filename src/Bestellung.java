@@ -16,11 +16,30 @@ public class Bestellung {
     }
 
 
-    public List<JunkFood> menu(order){
+    public List<JunkFood> menu(List<Burger> burgerList, List<Pizza> pizzaList, List<HotDog> hotDogList) {
 
-
-
-
+        System.out.println("Willkommen bei MegaMike");
+        System.out.println();
+        System.out.println("Verfügbare Produkte: ");
+        System.out.println();
+        System.out.println("BURGER:");
+        for (int i = 0; i< burgerList.size(); i++){
+            burgerList.get(i).toString();
+        }
+        System.out.println();
+        System.out.println("PIZZEN:");
+        for (int i = 0; i<pizzaList.size(); i++){
+            pizzaList.get(i).toString();
+        }
+        System.out.println();
+        System.out.println("PIZZEN:");
+        for (int i = 0; i<hotDogList.size(); i++){
+            hotDogList.get(i).toString();
+        }
+        System.out.println();
+        System.out.println("");
+        order.add(burgerList.get(1));
+        return order;
     }
 
     //G & S
