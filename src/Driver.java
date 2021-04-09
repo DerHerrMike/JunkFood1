@@ -20,13 +20,13 @@ public class Driver {
                     printInstructions();
                     break;
                 case 1:
-                    b.createBurger();
+                    b.createBurger(scanner);
                     break;
                 case 2:
-                    p.createPizza();
+                    p.createPizza(scanner);
                     break;
                 case 3:
-                    h.createHotDog();
+                    h.createHotDog(scanner);
                     break;
                 case 4:
                     o.menu(b.getBurgersCreated(), p.getPizzasCreated(), h.getHotdogCreated());

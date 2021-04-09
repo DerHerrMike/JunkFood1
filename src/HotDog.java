@@ -23,7 +23,7 @@ private List<HotDog> hotdogCreated = new ArrayList<>();
     }
 
 
-    private HotDog createHotDog(Scanner scanner){       //inputmismatch catch fehlt hier
+    protected HotDog createHotDog(Scanner scanner){       //inputmismatch catch fehlt hier
 
         System.out.println();
         System.out.println("HOTDOG ERSTELLEN");

@@ -17,7 +17,7 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
         this.isVeggy = isVeggy;
     }
 
-    private Pizza createPizza(Scanner scanner){       //inputmismatch catch fehlt hier
+    protected Pizza createPizza(Scanner scanner){       //inputmismatch catch fehlt hier
 
         System.out.print("Pizza Name: ");
         setName(scanner.nextLine());
