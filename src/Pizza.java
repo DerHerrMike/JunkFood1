@@ -1,0 +1,121 @@
+import java.util.Scanner;
+
+public class Pizza extends JunkFood{
+
+private int durchmesser;
+private boolean isVeggy;
+
+    public Pizza() {
+    }
+
+    public Pizza(String name, int calories, double price, int durchmesser, boolean isVeggy) {
+        super(name, calories, price);
+        this.durchmesser = durchmesser;
+        this.isVeggy = isVeggy;
+    }
+
+    private Pizza createPizza(Scanner scanner){       //inputmismatch catch fehlt hier
+
+        System.out.print("Pizza Name: ");
+        setName(scanner.nextLine());
+        System.out.print("Kalorien: ");
+        setCalories(scanner.nextInt());
+        System.out.print("Preis:");
+        setPrice(scanner.nextDouble());
+        System.out.print("Durchmesser (1 für 25cm, 2 für 30cm, 3 für 40cm): ");
+        int diameter = scanner.nextInt();
+        switch (diameter){
+            case 1: setDurchmesser(25);
+            break;
+            case 2: setDurchmesser(30);
+            break;
+            case 3: setDurchmesser(40);
+            break;
+
+        }
+        System.out.print("Extra Käse (j/n): ");
+        String veggieSelected = scanner.nextLine();
+        if (veggieSelected.equalsIgnoreCase("j")){
+            setVeggy(true);
+        }
+        return new Pizza(getName(), getCalories(), getPrice(), getDurchmesser(),isVeggy());
+    }
+
+
+    @Override
+    public void printAttributes() {
+        super.printAttributes();
+    }
+
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+
+    @Override
+    public int getCalories() {
+        return super.getCalories();
+    }
+
+    @Override
+    public void setCalories(int calories) {
+        super.setCalories(calories);
+    }
+
+    @Override
+    public double getPrice() {
+        return super.getPrice();
+    }
+
+    @Override
+    public void setPrice(double price) {
+        super.setPrice(price);
+    }
+
+    @Override
+    public void createBurger() {
+
+    }
+
+
+    @Override
+    public void createPizza() {
+
+    }
+
+    @Override
+    public void createHotDog() {
+
+    }
+
+
+    @Override
+    public String toString() {
+        return "Pizza{" +
+                "durchmesser=" + durchmesser +
+                ", isVeggy=" + isVeggy +
+                "} " + super.toString();
+    }
+
+    // G & S
+    public int getDurchmesser() {
+        return durchmesser;
+    }
+
+    public void setDurchmesser(int durchmesser) {
+        this.durchmesser = durchmesser;
+    }
+
+    public boolean isVeggy() {
+        return isVeggy;
+    }
+
+    public void setVeggy(boolean veggy) {
+        isVeggy = veggy;
+    }
+}
