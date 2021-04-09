@@ -24,17 +24,20 @@ public class Bestellung {
         System.out.println();
         System.out.println("BURGER:");
         for (int i = 0; i< burgerList.size(); i++){
-            burgerList.get(i).toString();
+           String burger = burgerList.get(i).toString();
+            System.out.println(burger);
         }
         System.out.println();
         System.out.println("PIZZEN:");
         for (int i = 0; i<pizzaList.size(); i++){
-            pizzaList.get(i).toString();
+            String pizza =  pizzaList.get(i).toString();
+            System.out.println(pizza);
         }
         System.out.println();
-        System.out.println("PIZZEN:");
+        System.out.println("HOTDOGS:");
         for (int i = 0; i<hotDogList.size(); i++){
-            hotDogList.get(i).toString();
+            String hotDog =             hotDogList.get(i).toString();
+            System.out.println(hotDog);
         }
         System.out.println();
         System.out.println("");

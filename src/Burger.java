@@ -20,19 +20,26 @@ public class Burger extends JunkFood {
 
     @Override
     protected Burger createBurger(Scanner scanner) {       //inputmismatch catch fehlt hier
-
+        scanner.nextLine();
         System.out.println();
         System.out.println("BURGER ERSTELLEN");
         System.out.println();
-        System.out.print("Burger Name: ");
-        setName(scanner.nextLine());
-        System.out.print("Kalorien: ");
-        setCalories(scanner.nextInt());
-        System.out.print("Preis:");
-        setPrice(scanner.nextDouble());
-        System.out.print("Größe (1 für Standard, 2 für Super, 3 für Mega): ");
-        setSize(scanner.nextInt());
-        System.out.print("Extra Käse (j/n): ");
+        System.out.println("Burger Name: ");
+        String name = scanner.nextLine();
+        setName(name);
+        System.out.println("Kalorien: ");
+        int calories = scanner.nextInt();
+        scanner.nextLine();
+        setCalories(calories);
+        System.out.println("Preis:");
+        double price = scanner.nextDouble();
+        scanner.nextLine();
+        setPrice(price);
+        System.out.println("Größe (1 für Standard, 2 für Super, 3 für Mega): ");
+        int sizeSelection = scanner.nextInt();
+        scanner.nextLine();
+        setSize(sizeSelection);
+        System.out.println("Extra Käse (j/n): ");
         String cheeseSelected = scanner.nextLine();
         if (cheeseSelected.equalsIgnoreCase("j")) {
             setCheese(true);

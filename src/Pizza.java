@@ -19,13 +19,19 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
 
     protected Pizza createPizza(Scanner scanner){       //inputmismatch catch fehlt hier
 
-        System.out.print("Pizza Name: ");
-        setName(scanner.nextLine());
-        System.out.print("Kalorien: ");
-        setCalories(scanner.nextInt());
-        System.out.print("Preis:");
-        setPrice(scanner.nextDouble());
-        System.out.print("Durchmesser (1 für 25cm, 2 für 30cm, 3 für 40cm): ");
+        scanner.nextLine();
+        System.out.println("Pizza Name: ");
+        String name = scanner.nextLine();
+        setName(name);
+        System.out.println("Kalorien: ");
+        int calories = scanner.nextInt();
+        setCalories(calories);
+        scanner.nextLine();
+        System.out.println("Preis:");
+        double price = scanner.nextDouble();
+        setPrice(price);
+        scanner.nextLine();
+        System.out.println("Durchmesser (1 für 25cm, 2 für 30cm, 3 für 40cm): ");
         int diameter = scanner.nextInt();
         switch (diameter){
             case 1: setDurchmesser(25);
@@ -34,9 +40,9 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
             break;
             case 3: setDurchmesser(40);
             break;
-
         }
-        System.out.print("Extra Käse (j/n): ");
+        scanner.nextLine();
+        System.out.println("Extra Käse (j/n): ");
         String veggieSelected = scanner.nextLine();
         if (veggieSelected.equalsIgnoreCase("j")){
             setVeggy(true);
@@ -105,7 +111,7 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
 
     @Override
     public List<Pizza> getPizzasCreated() {
-        return null;
+        return pizzasCreated;
     }
 
 

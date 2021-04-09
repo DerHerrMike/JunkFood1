@@ -25,6 +25,8 @@ public abstract class JunkFood {
 
     protected abstract Burger createBurger(Scanner scanner);
 
+    public abstract List<Pizza> getPizzasCreated();
+
     @Override
     public String toString() {
         return "JunkFood{" +
@@ -66,5 +68,5 @@ public abstract class JunkFood {
 
     public abstract void createHotDog();
 
-    public abstract List<Pizza> getPizzasCreated();
+
 }

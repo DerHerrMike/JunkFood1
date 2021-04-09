@@ -25,16 +25,19 @@ private List<HotDog> hotdogCreated = new ArrayList<>();
 
     protected HotDog createHotDog(Scanner scanner){       //inputmismatch catch fehlt hier
 
-        System.out.println();
-        System.out.println("HOTDOG ERSTELLEN");
-        System.out.println();
-        System.out.print("Name: ");
-        setName(scanner.nextLine());
-        System.out.print("Kalorien: ");
-        setCalories(scanner.nextInt());
-        System.out.print("Preis:");
-        setPrice(scanner.nextDouble());
-        System.out.print("Wurst wählen (1 für Frankfurter, 2 für Bratwurst): ");
+        scanner.nextLine();
+        System.out.println("HotDog Name: ");
+        String name = scanner.nextLine();
+        setName(name);
+        System.out.println("Kalorien: ");
+        int calories = scanner.nextInt();
+        setCalories(calories);
+        scanner.nextLine();
+        System.out.println("Preis:");
+        double price = scanner.nextDouble();
+        setPrice(price);
+        scanner.nextLine();
+        System.out.println("Wurst wählen (1 für Frankfurter, 2 für Bratwurst): ");
         int sausage = scanner.nextInt();
         switch (sausage){
             case 1: setSausageName("Frankfurter");
@@ -42,7 +45,8 @@ private List<HotDog> hotdogCreated = new ArrayList<>();
             case 2: setSausageName("Bratwurst");
                 break;
         }
-        System.out.print("XXL (j/n): ");
+        scanner.nextLine();
+        System.out.println("XXL (j/n): ");
         String cheeseSelected = scanner.nextLine();
         if (cheeseSelected.equalsIgnoreCase("j")){
             setXxl(true);
