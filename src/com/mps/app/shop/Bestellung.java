@@ -31,6 +31,7 @@ public class Bestellung {
         System.out.println("Verfügbare Produkte: ");
         System.out.println();
         System.out.println("BURGER:");
+
         for (int i = 0; i< burgerList.size(); i++){
            String burger = burgerList.get(i).toString();
             System.out.println(burger);
@@ -49,7 +50,7 @@ public class Bestellung {
         }
         System.out.println();
         System.out.println();
-        order.add(burgerList.get(1));
+        order.add(burgerList.get(0));
         return order;
     }
 

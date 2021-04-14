@@ -27,6 +27,9 @@ public class Driver {
         Lieferung l = new Lieferung();
         Scanner scanner = new Scanner(System.in);
         Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\menu.csv");
+        Path bpath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\burger.csv");
+        Path ppath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\pizza.csv");
+        Path hpath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\hotdog.csv");
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
@@ -48,11 +51,14 @@ public class Driver {
                     break;
                 case 3:
                     h.create(scanner);
+
                     break;
                 case 4:
                     System.out.println();
                     System.out.println("Die Speisekarte wurde geladen!");
-
+                    b.displayJunkFood(b.readAllLinesFromFileInList(bpath));
+                    p.displayJunkFood(p.readAllLinesFromFileinList(ppath));
+                    h.displayJunkFood(h.readAllLinesFromFileInList(hpath));
 
                     break;
                 case 5:

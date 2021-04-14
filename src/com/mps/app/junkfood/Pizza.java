@@ -58,16 +58,15 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
         }
         Pizza p = new Pizza(getName(), getCalories(), getPrice(), getDurchmesser(),isVeggy());
         p.writeFile(path);
-        p.writeFile(path);
         pizzasCreated.add(p);
         return p;
     }
 
 
-    public List<Pizza> readAllLines(Path path) throws IOException {
+    public List<JunkFood> readAllLinesFromFileinList(Path path) throws IOException {
 
         BufferedReader reader;
-        List<Pizza> allPizzasFromMenuFile = new ArrayList<>();
+        List<JunkFood> allPizzasFromMenuFile = new ArrayList<>();
 
         if (Files.size(path) < 1) {
             System.out.println("return null");
@@ -133,25 +132,27 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
     }
 
     @Override
-    protected void displayJunkFood(List<JunkFood> products) {
-        System.out.println("--------------------------------");
+    public void displayJunkFood(List<JunkFood> products) {
+
         System.out.println();
         System.out.println("Verfügbare Pizzen: ");
         System.out.println();
 
         for (JunkFood item : products) {
-            System.out.print("Name: " + getName() + " || ");
-            System.out.print("Kalorien: " + getCalories() + " || ");
-            System.out.print("Preis €: " + getPrice() + " || ");
-            System.out.print("Durchmesser: "+ getDurchmesser()+ " || ");
-            System.out.print("Vegetarisch: "+ isVeggy()+ " || ");
+            if (item instanceof Pizza) {
+                System.out.print("Name: " + item.getName() + " || ");
+                System.out.print("Kalorien: " + item.getCalories() + " || ");
+                System.out.print("Preis €: " + item.getPrice() + " || ");
+                System.out.print("Durchmesser: " + ((Pizza) item).getDurchmesser() + " || ");
+                System.out.print("Vegetarisch: " + ((Pizza) item).isVeggy() + " || ");
+                System.out.println();
+            } else {
+                System.out.println("Wrong JunkFood Item in Pizza List!");
+
+            }
+
             System.out.println();
         }
-        System.out.println();
-        System.out.println();
-        System.out.println("Zurück zum Menü mit beliebiger Taste!");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
     }
 
 

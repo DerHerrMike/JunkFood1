@@ -28,7 +28,7 @@ public class Burger extends JunkFood {
     }
 
     @Override
-    public Burger create(Scanner scanner) {       //inputmismatch catch fehlt hier
+    public Burger create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
         Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\burger.csv");
         scanner.nextLine();
         System.out.println();
@@ -55,6 +55,7 @@ public class Burger extends JunkFood {
             setCheese(true);
         }
         Burger b = new Burger(getName(), getCalories(), getPrice(), getSize(), isCheese());
+        b.writeFile(path);
         burgersCreated.add(b);
         return b;
     }
@@ -67,14 +68,14 @@ public class Burger extends JunkFood {
                 "," +
                 this.getPrice() +
                 "," +
-                this.getSize()+
+                this.getSize() +
                 "," +
-                this.isCheese()+
+                this.isCheese() +
                 "\n";
     }
 
     @Override
-    protected void displayJunkFood(List<JunkFood> products) {
+    public void displayJunkFood(List<JunkFood> products) {
 
         System.out.println("--------------------------------");
         System.out.println();
@@ -82,25 +83,26 @@ public class Burger extends JunkFood {
         System.out.println();
 
         for (JunkFood item : products) {
-            System.out.print("Name: " + getName() + " || ");
-            System.out.print("Kalorien: " + getCalories() + " || ");
-            System.out.print("Preis €: " + getPrice() + " || ");
-            System.out.print("Größe: "+ getSize()+ " || ");
-            System.out.print("Käse: "+ isCheese()+ " || ");
+            if (item instanceof Burger) {
+                System.out.print("Name: " + item.getName() + " || ");
+                System.out.print("Kalorien: " + item.getCalories() + " || ");
+                System.out.print("Preis €: " + item.getPrice() + " || ");
+                System.out.print("Größe: " + ((Burger) item).getSize() + " || ");
+                System.out.print("Käse: " + ((Burger) item).isCheese() + " || ");
+                System.out.println();
+
+            } else {
+                System.out.println("Wrong JunkFood Item in Burger List!");
+            }
+
             System.out.println();
         }
-        System.out.println();
-        System.out.println();
-        System.out.println("Zurück zum Menü mit beliebiger Taste!");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
     }
 
+    public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
 
-    public List<Burger> readAllLines(Path path) throws IOException {
-
-        BufferedReader reader;
-        List<Burger> allBurgersFromMenuFile = new ArrayList<>();
+        BufferedReader reader = null;
+        List<JunkFood> allBurgersFromMenuFile = new ArrayList<>();
 
         if (Files.size(path) < 1) {
             System.out.println("return null");
@@ -113,7 +115,7 @@ public class Burger extends JunkFood {
                 while (line != null) {
                     String[] ausgeleseneZeile = line.split(",");
                     //BurgerName
-                    String name  = ausgeleseneZeile[0];
+                    String name = ausgeleseneZeile[0];
                     //B Calories
                     int calories = Integer.parseInt(ausgeleseneZeile[1]);
                     //B Price
@@ -126,9 +128,12 @@ public class Burger extends JunkFood {
                     allBurgersFromMenuFile.add(burger);
                     line = reader.readLine();
                 }
-                reader.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                assert reader != null;
+                reader.close();
             }
         }
         return allBurgersFromMenuFile;

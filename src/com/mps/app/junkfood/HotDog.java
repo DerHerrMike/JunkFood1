@@ -64,10 +64,10 @@ public class HotDog extends JunkFood {
         return h;
     }
 
-    public List<HotDog> readAllLines(Path path) throws IOException {
+    public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
 
         BufferedReader reader;
-        List<HotDog> allHotdogsFromMenuFile = new ArrayList<>();
+        List<JunkFood> allHotdogsFromMenuFile = new ArrayList<>();
 
         if (Files.size(path) < 1) {
             System.out.println("return null");
@@ -131,7 +131,7 @@ public class HotDog extends JunkFood {
     }
 
     @Override
-    protected void displayJunkFood(List<JunkFood> products) {
+    public void displayJunkFood(List<JunkFood> products) {
 
         System.out.println("--------------------------------");
         System.out.println();
@@ -139,20 +139,22 @@ public class HotDog extends JunkFood {
         System.out.println();
 
         for (JunkFood item : products) {
-            System.out.print("Name: " + getName() + " || ");
-            System.out.print("Kalorien: " + getCalories() + " || ");
-            System.out.print("Preis €: " + getPrice() + " || ");
-            System.out.print("Wurst: "+ getSausageName()+ " || ");
-            System.out.print("XXL: "+ isXxl()+ " || ");
+            if (item instanceof HotDog) {
+                System.out.print("Name: " + item.getName() + " || ");
+                System.out.print("Kalorien: " + item.getCalories() + " || ");
+                System.out.print("Preis €: " + item.getPrice() + " || ");
+                System.out.print("Wurst: " + ((HotDog) item).getSausageName() + " || ");
+                System.out.print("XXL: " + ((HotDog) item).isXxl() + " || ");
+                System.out.println();
+            } else {
+                System.out.println("Wrong JunkFood Item in HotDog List!");
+            }
             System.out.println();
+            System.out.println("Zurück zum Menü mit beliebiger Taste!");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
         }
-        System.out.println();
-        System.out.println();
-        System.out.println("Zurück zum Menü mit beliebiger Taste!");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
     }
-
 
     //G & S
 
