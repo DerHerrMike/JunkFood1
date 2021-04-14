@@ -1,5 +1,10 @@
 package com.mps.app.junkfood;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,19 +30,15 @@ public abstract class JunkFood {
         System.out.println("Kalorien: " + getCalories());
     }
 
-    protected abstract JunkFood create(Scanner scanner);
 
+    protected abstract JunkFood create(Scanner scanner) throws IOException;
 
-    public abstract List<Pizza> getPizzasCreated();
+    protected abstract void writeFile (Path path) throws IOException;
 
-    @Override
-    public String toString() {
-        return "JunkFood{" +
-                "name='" + name + '\'' +
-                ", calories=" + calories +
-                ", price=" + price +
-                '}';
-    }
+    protected abstract String convert();
+
+protected abstract void displayJunkFood(List<JunkFood> products);
+
 
     // G & S
     public String getName() {

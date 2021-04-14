@@ -45,6 +45,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\com\mps\app\junkfood\Burger.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\com\mps\app\junkfood\JunkFood.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\com\mps\app\junkfood\Pizza.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

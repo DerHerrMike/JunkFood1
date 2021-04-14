@@ -1,14 +1,21 @@
 package com.mps.app.junkfood;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HotDog extends JunkFood{
+public class HotDog extends JunkFood {
 
-private String sausageName;
-private boolean xxl;
-private List<HotDog> hotdogCreated = new ArrayList<>();
+    private String sausageName;
+    private boolean xxl;
+    private List<HotDog> hotdogCreated = new ArrayList<>();
 
     public HotDog() {
     }
@@ -21,8 +28,8 @@ private List<HotDog> hotdogCreated = new ArrayList<>();
     }
 
 
-    public HotDog create(Scanner scanner){       //inputmismatch catch fehlt hier
-
+    public HotDog create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
+        Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\hotdog.csv");
         scanner.nextLine();
         System.out.println("HotDog Name: ");
         String name = scanner.nextLine();
@@ -37,22 +44,115 @@ private List<HotDog> hotdogCreated = new ArrayList<>();
         scanner.nextLine();
         System.out.println("Wurst wählen (1 für Frankfurter, 2 für Bratwurst): ");
         int sausage = scanner.nextInt();
-        switch (sausage){
-            case 1: setSausageName("Frankfurter");
+        switch (sausage) {
+            case 1:
+                setSausageName("Frankfurter");
                 break;
-            case 2: setSausageName("Bratwurst");
+            case 2:
+                setSausageName("Bratwurst");
                 break;
         }
         scanner.nextLine();
         System.out.println("XXL (j/n): ");
         String cheeseSelected = scanner.nextLine();
-        if (cheeseSelected.equalsIgnoreCase("j")){
+        if (cheeseSelected.equalsIgnoreCase("j")) {
             setXxl(true);
         }
-        HotDog h = new HotDog(getName(), getCalories(), getPrice(), getSausageName(),isXxl());
+        HotDog h = new HotDog(getName(), getCalories(), getPrice(), getSausageName(), isXxl());
+        h.writeFile(path);
         hotdogCreated.add(h);
         return h;
     }
+
+    public List<HotDog> readAllLines(Path path) throws IOException {
+
+        BufferedReader reader;
+        List<HotDog> allHotdogsFromMenuFile = new ArrayList<>();
+
+        if (Files.size(path) < 1) {
+            System.out.println("return null");
+            return null;
+        } else {
+
+            try {
+                reader = new BufferedReader(new FileReader(String.valueOf(path)));
+                String line = reader.readLine();
+                while (line != null) {
+                    String[] ausgeleseneZeile = line.split(",");
+                    //HotDogName
+                    String name = ausgeleseneZeile[0];
+                    //H Calories
+                    int calories = Integer.parseInt(ausgeleseneZeile[1]);
+                    //H Price
+                    double price = Double.parseDouble(ausgeleseneZeile[2]);
+                    //H Sausage
+                    String sausage = ausgeleseneZeile[3];
+                    //B isXXL
+                    boolean xxl = Boolean.parseBoolean(ausgeleseneZeile[4]);
+                    HotDog hotDog = new HotDog(name, calories, price, sausage, xxl);
+                    allHotdogsFromMenuFile.add(hotDog);
+                    line = reader.readLine();
+                }
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return allHotdogsFromMenuFile;
+    }
+
+    @Override
+    public void writeFile(Path path) throws IOException {
+        String object = convert();
+
+        if (Files.notExists(path)) {
+            Files.createFile(path);
+        }
+
+        Files.write(
+                path,
+                object.getBytes(),
+                StandardOpenOption.APPEND);
+    }
+
+
+    @Override
+    public String convert() {
+        return this.getName() +
+                "," +
+                this.getCalories() +
+                "," +
+                this.getPrice() +
+                "," +
+                this.getSausageName() +
+                "," +
+                this.isXxl() +
+                "\n";
+    }
+
+    @Override
+    protected void displayJunkFood(List<JunkFood> products) {
+
+        System.out.println("--------------------------------");
+        System.out.println();
+        System.out.println("Verfügbare HotDogs: ");
+        System.out.println();
+
+        for (JunkFood item : products) {
+            System.out.print("Name: " + getName() + " || ");
+            System.out.print("Kalorien: " + getCalories() + " || ");
+            System.out.print("Preis €: " + getPrice() + " || ");
+            System.out.print("Wurst: "+ getSausageName()+ " || ");
+            System.out.print("XXL: "+ isXxl()+ " || ");
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println();
+        System.out.println("Zurück zum Menü mit beliebiger Taste!");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
+
 
     //G & S
 
@@ -84,9 +184,4 @@ private List<HotDog> hotdogCreated = new ArrayList<>();
                 "} " + super.toString();
     }
 
-
-    @Override
-    public List<Pizza> getPizzasCreated() {
-        return null;
-    }
 }

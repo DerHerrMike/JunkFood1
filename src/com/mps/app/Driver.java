@@ -7,6 +7,10 @@ import com.mps.app.junkfood.Pizza;
 import com.mps.app.shop.Bestellung;
 import com.mps.app.shop.Lieferung;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +18,7 @@ import java.util.Scanner;
 public class Driver {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Burger b = new Burger();
         Pizza p = new Pizza();
@@ -22,6 +26,10 @@ public class Driver {
         Bestellung o = new Bestellung();
         Lieferung l = new Lieferung();
         Scanner scanner = new Scanner(System.in);
+        Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\menu.csv");
+        if (Files.notExists(path)) {
+            Files.createFile(path);
+        }
         List<JunkFood> orderedItems = new ArrayList<>();
         boolean quit = false;
         printInstructions();
@@ -43,6 +51,7 @@ public class Driver {
                     break;
                 case 4:
                     System.out.println();
+                    System.out.println("Die Speisekarte wurde geladen!");
 
 
                     break;
