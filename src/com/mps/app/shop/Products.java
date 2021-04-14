@@ -1,3 +1,5 @@
+package com.mps.app.shop;
+
 public enum Products {
 
     HamBurger,

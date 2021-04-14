@@ -1,3 +1,7 @@
+package com.mps.app.shop;
+
+import java.util.Random;
+
 public class Lieferung {
 
     private int deliverytime;
@@ -8,11 +12,12 @@ public class Lieferung {
     public Lieferung() {
     }
 
-    public Lieferung(int deliverytime, boolean freeDelivery) {
-        this.deliverytime = deliverytime;
-        this.freeDelivery = freeDelivery;
-    }
 
+    public int deliveryRand(){
+
+        Random r = new Random();
+        return (r.nextInt(30) + 15);
+    }
 
     //G&S
     public int getDeliverytime() {

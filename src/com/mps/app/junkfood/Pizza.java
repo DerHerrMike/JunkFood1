@@ -1,3 +1,5 @@
+package com.mps.app.junkfood;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +19,7 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
         this.isVeggy = isVeggy;
     }
 
-    protected Pizza createPizza(Scanner scanner){       //inputmismatch catch fehlt hier
+    public Pizza create(Scanner scanner){       //inputmismatch catch fehlt hier
 
         scanner.nextLine();
         System.out.println("Pizza Name: ");
@@ -58,10 +60,6 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
         super.printAttributes();
     }
 
-    @Override
-    protected Burger createBurger(Scanner scanner) {
-        return null;
-    }
 
     @Override
     public String getName() {
@@ -91,22 +89,6 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
     @Override
     public void setPrice(double price) {
         super.setPrice(price);
-    }
-
-    @Override
-    public void createBurger() {
-
-    }
-
-
-    @Override
-    public void createPizza() {
-
-    }
-
-    @Override
-    public void createHotDog() {
-
     }
 
     @Override

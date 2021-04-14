@@ -1,3 +1,5 @@
+package com.mps.app.junkfood;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,10 +13,6 @@ private List<HotDog> hotdogCreated = new ArrayList<>();
     public HotDog() {
     }
 
-    @Override
-    protected Burger createBurger(Scanner scanner) {
-        return null;
-    }
 
     public HotDog(String name, int calories, double price, String sausageName, boolean xxl) {
         super(name, calories, price);
@@ -23,7 +21,7 @@ private List<HotDog> hotdogCreated = new ArrayList<>();
     }
 
 
-    protected HotDog createHotDog(Scanner scanner){       //inputmismatch catch fehlt hier
+    public HotDog create(Scanner scanner){       //inputmismatch catch fehlt hier
 
         scanner.nextLine();
         System.out.println("HotDog Name: ");
@@ -86,20 +84,6 @@ private List<HotDog> hotdogCreated = new ArrayList<>();
                 "} " + super.toString();
     }
 
-    @Override
-    public void createBurger() {
-
-    }
-
-    @Override
-    public void createPizza() {
-
-    }
-
-    @Override
-    public void createHotDog() {
-
-    }
 
     @Override
     public List<Pizza> getPizzasCreated() {

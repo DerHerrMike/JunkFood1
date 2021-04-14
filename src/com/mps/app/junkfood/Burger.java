@@ -1,3 +1,5 @@
+package com.mps.app.junkfood;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,7 +21,7 @@ public class Burger extends JunkFood {
     }
 
     @Override
-    protected Burger createBurger(Scanner scanner) {       //inputmismatch catch fehlt hier
+    public Burger create(Scanner scanner) {       //inputmismatch catch fehlt hier
         scanner.nextLine();
         System.out.println();
         System.out.println("BURGER ERSTELLEN");
@@ -88,7 +90,7 @@ public class Burger extends JunkFood {
 
     @Override
     public String toString() {
-        return "Burger{" +
+        return ".Burger{" +
                 "size=" + size +
                 ", cheese=" + cheese +
                 "} " + super.toString();
@@ -127,22 +129,6 @@ public class Burger extends JunkFood {
     @Override
     public void setPrice(double price) {
         super.setPrice(price);
-    }
-
-    @Override
-    public void createBurger() {
-
-    }
-
-
-    @Override
-    public void createPizza() {
-
-    }
-
-    @Override
-    public void createHotDog() {
-
     }
 
     @Override

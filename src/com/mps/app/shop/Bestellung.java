@@ -1,3 +1,10 @@
+package com.mps.app.shop;
+
+import com.mps.app.junkfood.Burger;
+import com.mps.app.junkfood.HotDog;
+import com.mps.app.junkfood.JunkFood;
+import com.mps.app.junkfood.Pizza;
+
 import java.util.List;
 
 public class Bestellung {
@@ -14,6 +21,7 @@ public class Bestellung {
         this.order = order;
         this.gross = gross;
     }
+
 
 
     public List<JunkFood> menu(List<Burger> burgerList, List<Pizza> pizzaList, List<HotDog> hotDogList) {
@@ -40,7 +48,7 @@ public class Bestellung {
             System.out.println(hotDog);
         }
         System.out.println();
-        System.out.println("");
+        System.out.println();
         order.add(burgerList.get(1));
         return order;
     }

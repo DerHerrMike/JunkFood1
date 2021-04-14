@@ -1,3 +1,5 @@
+package com.mps.app.junkfood;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,7 +25,8 @@ public abstract class JunkFood {
         System.out.println("Kalorien: " + getCalories());
     }
 
-    protected abstract Burger createBurger(Scanner scanner);
+    protected abstract JunkFood create(Scanner scanner);
+
 
     public abstract List<Pizza> getPizzasCreated();
 
@@ -60,13 +63,6 @@ public abstract class JunkFood {
     public void setPrice(double price) {
         this.price = price;
     }
-
-
-    public abstract void createBurger();
-
-    public abstract void createPizza();
-
-    public abstract void createHotDog();
 
 
 }
