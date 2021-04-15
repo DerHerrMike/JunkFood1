@@ -59,8 +59,8 @@ public class Driver {
                     burgersFromFile = b.readAllLinesFromFileInList(bpath);
                     pizzasFromFile= p.readAllLinesFromFileinList(ppath);
                     hotdogsFromFile = h.readAllLinesFromFileInList(hpath);
-                    productsOrdered= o.menu(b,p,h,burgersFromFile,pizzasFromFile, hotdogsFromFile);
-
+                    o.menu(b,p,h,burgersFromFile,pizzasFromFile, hotdogsFromFile);
+                    o.ordering(burgersFromFile, pizzasFromFile, hotdogsFromFile);
                     l.setDeliverytime(l.deliveryRand());
                     int time = l.getDeliverytime();
                     System.out.println("Die Zustellung erfolgt in ca. " + time + " Minuten!");
