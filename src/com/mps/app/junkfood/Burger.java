@@ -62,6 +62,7 @@ public class Burger extends JunkFood {
 
     @Override
     public String convert() {
+
         return this.getName() +
                 "," +
                 this.getCalories() +
@@ -70,7 +71,7 @@ public class Burger extends JunkFood {
                 "," +
                 this.getSize() +
                 "," +
-                this.isCheese() +
+                this.convertCheese() +
                 "\n";
     }
 
@@ -88,7 +89,7 @@ public class Burger extends JunkFood {
                 System.out.print("Kalorien: " + item.getCalories() + " || ");
                 System.out.print("Preis €: " + item.getPrice() + " || ");
                 System.out.print("Größe: " + ((Burger) item).getSize() + " || ");
-                System.out.print("Käse: " + ((Burger) item).isCheese() + " || ");
+                System.out.print("Käse: " + ((Burger) item).convertCheese() + " || ");
                 System.out.println();
 
             } else {
@@ -167,6 +168,14 @@ public class Burger extends JunkFood {
                 break;
         }
     }
+
+    public String convertCheese(){
+        boolean cheese = isCheese();
+        if (cheese){
+            return "mit Käse";
+        }else return "ohne Käse";
+    }
+
 
     // G & S
 

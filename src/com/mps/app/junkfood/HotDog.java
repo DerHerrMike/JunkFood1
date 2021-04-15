@@ -126,8 +126,15 @@ public class HotDog extends JunkFood {
                 "," +
                 this.getSausageName() +
                 "," +
-                this.isXxl() +
+                this.convertXXL() +
                 "\n";
+    }
+
+    public String convertXXL(){
+        boolean xxl = isXxl();
+        if (xxl){
+            return "Ja";
+        }else return "Nein";
     }
 
     @Override
@@ -144,15 +151,12 @@ public class HotDog extends JunkFood {
                 System.out.print("Kalorien: " + item.getCalories() + " || ");
                 System.out.print("Preis €: " + item.getPrice() + " || ");
                 System.out.print("Wurst: " + ((HotDog) item).getSausageName() + " || ");
-                System.out.print("XXL: " + ((HotDog) item).isXxl() + " || ");
+                System.out.print("XXL: " + ((HotDog) item).convertXXL() + " || ");
                 System.out.println();
             } else {
                 System.out.println("Wrong JunkFood Item in HotDog List!");
             }
             System.out.println();
-            System.out.println("Zurück zum Menü mit beliebiger Taste!");
-            Scanner scanner = new Scanner(System.in);
-            scanner.nextLine();
         }
     }
 
@@ -180,7 +184,7 @@ public class HotDog extends JunkFood {
 
     @Override
     public String toString() {
-        return "HotDog{" +
+        return "HotDog" +
                 "sausageName='" + sausageName + '\'' +
                 ", xxl=" + xxl +
                 "} " + super.toString();

@@ -116,6 +116,12 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
                 StandardOpenOption.APPEND);
     }
 
+    public String convertVeggy(){
+        boolean veggy = isVeggy();
+        if (veggy){
+            return "ja";
+        }else return "nein";
+    }
 
     @Override
     public String convert() {
@@ -127,7 +133,7 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
                 "," +
                 this.getDurchmesser()+
                 "," +
-                this.isVeggy()+
+                this.convertVeggy()+
                 "\n";
     }
 
@@ -144,7 +150,7 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
                 System.out.print("Kalorien: " + item.getCalories() + " || ");
                 System.out.print("Preis €: " + item.getPrice() + " || ");
                 System.out.print("Durchmesser: " + ((Pizza) item).getDurchmesser() + " || ");
-                System.out.print("Vegetarisch: " + ((Pizza) item).isVeggy() + " || ");
+                System.out.print("Vegetarisch: " + ((Pizza) item).convertVeggy() + " || ");
                 System.out.println();
             } else {
                 System.out.println("Wrong JunkFood Item in Pizza List!");

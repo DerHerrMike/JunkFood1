@@ -5,11 +5,13 @@ import com.mps.app.junkfood.HotDog;
 import com.mps.app.junkfood.JunkFood;
 import com.mps.app.junkfood.Pizza;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Bestellung {
 
-    private List<JunkFood> order;
+    private List<JunkFood> order = new ArrayList<>();
     private double gross;
     private final double minimumDeliveryAmount = 14.90;
 
@@ -23,34 +25,27 @@ public class Bestellung {
     }
 
 
-
-    public List<JunkFood> menu(List<Burger> burgerList, List<Pizza> pizzaList, List<HotDog> hotDogList) {
+    public List<JunkFood> menu(Burger burger, Pizza pizza, HotDog hotdog, List<JunkFood> burgerList,  List<JunkFood> pizzaList, List<JunkFood> hotDogList) {
 
         System.out.println("Willkommen bei MegaMike");
         System.out.println();
         System.out.println("Verfügbare Produkte: ");
         System.out.println();
-        System.out.println("BURGER:");
 
-        for (int i = 0; i< burgerList.size(); i++){
-           String burger = burgerList.get(i).toString();
-            System.out.println(burger);
-        }
+        System.out.println("BURGER:");
+        burger.displayJunkFood(burgerList);
         System.out.println();
+
         System.out.println("PIZZEN:");
-        for (int i = 0; i<pizzaList.size(); i++){
-            String pizza =  pizzaList.get(i).toString();
-            System.out.println(pizza);
-        }
+        pizza.displayJunkFood(pizzaList);
         System.out.println();
+
         System.out.println("HOTDOGS:");
-        for (int i = 0; i<hotDogList.size(); i++){
-            String hotDog =             hotDogList.get(i).toString();
-            System.out.println(hotDog);
-        }
+        hotdog.displayJunkFood(hotDogList);
         System.out.println();
         System.out.println();
-        order.add(burgerList.get(0));
+
+        setOrder(order, burgerList.get(0));
         return order;
     }
 
@@ -73,8 +68,8 @@ public class Bestellung {
         return order;
     }
 
-    public void setOrder(List<JunkFood> order) {
-        this.order = order;
+    public void setOrder(List<JunkFood> order, JunkFood product) {
+        order.add(product);
     }
 
     @Override
