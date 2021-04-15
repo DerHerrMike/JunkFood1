@@ -28,7 +28,7 @@ public class Bestellung {
 
     public void menu(Burger burger, Pizza pizza, HotDog hotdog, List<JunkFood> burgerList, List<JunkFood> pizzaList, List<JunkFood> hotDogList) {
 
-        System.out.println("Willkommen bei MegaMike - fettige geht nimma!");
+        System.out.println("Willkommen bei MegaMike - fettiger geht nimma!");
         System.out.println();
         System.out.println("Verfügbare Produkte: ");
         System.out.println();
@@ -63,7 +63,7 @@ public class Bestellung {
                     auswahl = Integer.parseInt(selection);
                     correctSelection = true;
                 } else {
-                    System.out.println("Ungültige Auswahl getroffen! Weiter mit beliebiger Taste!");
+                    System.out.println("Ungültige Auswahl getroffen! Weiter mit Enter!");
                     scanner.nextLine();
                     System.out.println();
                 }
@@ -74,13 +74,25 @@ public class Bestellung {
                     while (!available) {
                         System.out.println("Bitte den Namen des Burgers eingeben: ");
                         String burgerselected = scanner.nextLine();
-                        if (burgerselected.equalsIgnoreCase(burgerList.get(0).getName())) {
-                            setOrder(order, burgerList.get(0));
-                            available = true;
-                        } else {
-                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen: ");
+                        for (JunkFood junkFood : burgerList) {
+                            if (junkFood instanceof Burger) {
+                                System.out.println((junkFood.getName()));
+                                if (burgerselected.equalsIgnoreCase(junkFood.getName())) {
+                                    setOrder(order, junkFood);
+                                    System.out.println(getOrder().toString());
+                                    available = true;
+                                    break;
+                                }
+                            } else {
+                                System.out.println("Wrong JunkFood Item in Burger List!");
+                            }
                         }
-
+                        if (available) {
+                            break;
+                        } else {
+                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Weiter mit Enter!");
+                            scanner.nextLine();
+                        }
                     }
                 }
                 case 2 -> {
@@ -88,11 +100,23 @@ public class Bestellung {
                     while (!available) {
                         System.out.println("Bitte den Namen der Pizza eingeben: ");
                         String pizzaselected = scanner.nextLine();
-                        if (pizzaselected.equalsIgnoreCase(pizzaList.get(0).getName())) {
-                            setOrder(order, pizzaList.get(0));
-                            available = true;
+                        for (JunkFood junkFood : pizzaList) {
+                            if (junkFood instanceof Pizza) {
+                                if (pizzaselected.equalsIgnoreCase(junkFood.getName())) {
+                                    setOrder(order, junkFood);
+                                    System.out.println(getOrder().toString());
+                                    available = true;
+                                    break;
+                                }
+                            } else {
+                                System.out.println("Wrong JunkFood Item in Pizza List!");
+                            }
+                        }
+                        if (available) {
+                            break;
                         } else {
-                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen: ");
+                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Weiter mit Enter!");
+                            scanner.nextLine();
                         }
                     }
                 }
@@ -116,7 +140,7 @@ public class Bestellung {
             System.out.println();
             System.out.println("Weiteres fettiges JunkFood bestellen (j/n)");
             String further = scanner.nextLine();
-            if (further.equalsIgnoreCase("n")){
+            if (further.equalsIgnoreCase("n")) {
                 furtherItemOrder = false;
             }
         }
