@@ -68,7 +68,7 @@ public class Bestellung {
                     System.out.println();
                 }
             }
-            switch (auswahl) {
+            switch (auswahl) {      //TODO doesnt work
                 case 1 -> {
                     boolean available = false;
                     while (!available) {
@@ -76,7 +76,9 @@ public class Bestellung {
                         String burgerselected = scanner.nextLine();
                         for (JunkFood junkFood : burgerList) {
                             if (junkFood instanceof Burger) {
+                                //TEST
                                 System.out.println((junkFood.getName()));
+                                //END
                                 if (burgerselected.equalsIgnoreCase(junkFood.getName())) {
                                     setOrder(order, junkFood);
                                     System.out.println(getOrder().toString());
