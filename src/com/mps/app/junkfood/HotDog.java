@@ -28,7 +28,7 @@ public class HotDog extends JunkFood {
     }
 
 
-    public HotDog create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
+    public void create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
         Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\hotdog.csv");
         scanner.nextLine();
         System.out.println("HotDog Name: ");
@@ -57,7 +57,6 @@ public class HotDog extends JunkFood {
         HotDog h = new HotDog(getName(), getCalories(), getPrice(), getSausageName(), isXxl());
         h.writeFile(path);
         hotdogCreated.add(h);
-        return h;
     }
 
     public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
@@ -92,7 +91,7 @@ public class HotDog extends JunkFood {
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }   finally {
+            } finally {
                 assert reader != null;
                 reader.close();
             }
@@ -129,11 +128,11 @@ public class HotDog extends JunkFood {
                 "\n";
     }
 
-    public String convertXXL(){
+    public String convertXXL() {
         boolean xxl = isXxl();
-        if (xxl){
+        if (xxl) {
             return "Ja";
-        }else return "Nein";
+        } else return "Nein";
     }
 
     @Override
@@ -160,7 +159,6 @@ public class HotDog extends JunkFood {
     }
 
     //G & S
-
     public String getSausageName() {
         return sausageName;
     }
@@ -175,18 +173,6 @@ public class HotDog extends JunkFood {
 
     public void setXxl(boolean xxl) {
         this.xxl = xxl;
-    }
-
-    public List<HotDog> getHotdogCreated() {
-        return hotdogCreated;
-    }
-
-    @Override
-    public String toString() {
-        return "HotDog" +
-                "sausageName='" + sausageName + '\'' +
-                ", xxl=" + xxl +
-                "} " + super.toString();
     }
 
 }

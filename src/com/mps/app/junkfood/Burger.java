@@ -28,7 +28,7 @@ public class Burger extends JunkFood {
     }
 
     @Override
-    public Burger create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
+    public void create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
         Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\burger.csv");
         scanner.nextLine();
         System.out.println();
@@ -57,7 +57,6 @@ public class Burger extends JunkFood {
         Burger b = new Burger(getName(), getCalories(), getPrice(), getSize(), isCheese());
         b.writeFile(path);
         burgersCreated.add(b);
-        return b;
     }
 
     @Override
@@ -155,14 +154,6 @@ public class Burger extends JunkFood {
     }
 
 
-    public void displaySize(int size) {
-        switch (size) {
-            case 1 -> System.out.println("Standard");
-            case 2 -> System.out.println("Super");
-            case 3 -> System.out.println("Mega");
-        }
-    }
-
     public String convertCheese(){
         boolean cheese = isCheese();
         if (cheese){
@@ -170,13 +161,6 @@ public class Burger extends JunkFood {
         }else return "ohne Käse";
     }
 
-
-    // G & S
-
-
-    public List<Burger> getBurgersCreated() {
-        return burgersCreated;
-    }
 
     public int getSize() {
         return size;

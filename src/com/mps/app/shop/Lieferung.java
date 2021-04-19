@@ -5,7 +5,6 @@ import java.util.Random;
 public class Lieferung {
 
     private int deliverytime;
-    private final double deliveryCosts = 3.90;
 
 
     public Lieferung() {
@@ -38,7 +37,7 @@ public class Lieferung {
     }
 
     public double getDeliveryCosts() {
-        return deliveryCosts;
+        return 3.90;
     }
 
 }

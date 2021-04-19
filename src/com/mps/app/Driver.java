@@ -6,12 +6,10 @@ import com.mps.app.junkfood.JunkFood;
 import com.mps.app.junkfood.Pizza;
 import com.mps.app.shop.Bestellung;
 import com.mps.app.shop.Lieferung;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 

@@ -11,17 +11,11 @@ import java.util.Scanner;
 
 public class Bestellung {
 
-    private List<JunkFood> order = new ArrayList<>();
+    private final List<JunkFood> order = new ArrayList<>();
     private double gross = 0.0f;
-    private final double minimumDeliveryAmount = 14.90;
 
 
     public Bestellung() {
-    }
-
-    public Bestellung(List<JunkFood> order, double gross) {
-        this.order = order;
-        this.gross = gross;
     }
 
 
@@ -87,11 +81,10 @@ public class Bestellung {
                                     System.out.println();
                                     if (getGross() < getMinimumDeliveryAmount()) {
                                         System.out.printf("Gratis Zustellung ab EUR " + getMinimumDeliveryAmount() + "! Dazu brauchst du noch EUR %.2f%n", (getMinimumDeliveryAmount() - getGross()));
-                                        System.out.println();
                                     } else {
                                         System.out.printf("Bestellwert für Gratislieferung erreicht! Aktueller Saldo EUR: %.2f%n", getGross());
-                                        System.out.println();
                                     }
+                                    System.out.println();
                                     available = true;
                                     break;
                                 }
@@ -127,11 +120,10 @@ public class Bestellung {
                                     System.out.println();
                                     if (getGross() < getMinimumDeliveryAmount()) {
                                         System.out.printf("Gratis Zustellung ab EUR " + getMinimumDeliveryAmount() + "! Dazu brauchst du noch EUR %.2f%n", (getMinimumDeliveryAmount() - getGross()));
-                                        System.out.println();
                                     } else {
                                         System.out.printf("Bestellwert für Gratislieferung erreicht! Aktueller Saldo EUR: %.2f%n", getGross());
-                                        System.out.println();
                                     }
+                                    System.out.println();
                                     available = true;
                                     break;
                                 }
@@ -167,11 +159,10 @@ public class Bestellung {
                                     System.out.println();
                                     if (getGross() < getMinimumDeliveryAmount()) {
                                         System.out.printf("Gratis Zustellung ab EUR " + getMinimumDeliveryAmount() + "! Dazu brauchst du noch EUR %.2f%n", (getMinimumDeliveryAmount() - getGross()));
-                                        System.out.println();
                                     } else {
                                         System.out.printf("Bestellwert für Gratislieferung erreicht! Aktueller Saldo EUR: %.2f%n", getGross());
-                                        System.out.println();
                                     }
+                                    System.out.println();
                                     available = true;
                                     break;
                                 }
@@ -251,6 +242,8 @@ public class Bestellung {
         System.out.printf("Die Zustellgebühr von EUR %.2f wurde der Rechnung hinzugefügt!%n", l.getDeliveryCosts());
         System.out.println();
         System.out.printf("Rechnungsbetrag gesamt EUR: %.2f%n", total);
+        System.out.println();
+        System.out.println("Die Zustellung erfolgt in ca. " + time + " Minuten!");
         System.out.println("***************************************");
         System.out.println();
     }
@@ -265,23 +258,12 @@ public class Bestellung {
     }
 
     public double getMinimumDeliveryAmount() {
-        return minimumDeliveryAmount;
+        return 14.90;
     }
 
-    public List<JunkFood> getOrder() {
-        return order;
-    }
 
     public void setOrder(List<JunkFood> order, JunkFood product) {
         order.add(product);
     }
 
-    @Override
-    public String toString() {
-        return "Bestellung{" +
-                "order=" + order +
-                ", gross=" + gross +
-                ", minimumDeliveryAmount=" + minimumDeliveryAmount +
-                '}';
-    }
 }

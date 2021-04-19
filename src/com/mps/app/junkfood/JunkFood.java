@@ -1,10 +1,6 @@
 package com.mps.app.junkfood;
-
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,7 +27,7 @@ public abstract class JunkFood {
     }
 
 
-    protected abstract JunkFood create(Scanner scanner) throws IOException;
+    protected abstract void create(Scanner scanner) throws IOException;
 
     protected abstract void writeFile (Path path) throws IOException;
 
@@ -64,6 +60,5 @@ protected abstract void displayJunkFood(List<JunkFood> products);
     public void setPrice(double price) {
         this.price = price;
     }
-
 
 }

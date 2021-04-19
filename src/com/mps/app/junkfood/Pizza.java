@@ -26,7 +26,7 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
         this.isVeggy = isVeggy;
     }
 
-    public Pizza create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
+    public void create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
         Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\pizza.csv");
         scanner.nextLine();
         System.out.println("Pizza Name: ");
@@ -56,7 +56,6 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
         Pizza p = new Pizza(getName(), getCalories(), getPrice(), getDurchmesser(),isVeggy());
         p.writeFile(path);
         pizzasCreated.add(p);
-        return p;
     }
 
 
@@ -196,20 +195,6 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
     @Override
     public void setPrice(double price) {
         super.setPrice(price);
-    }
-
-
-    public List<Pizza> getPizzasCreated() {
-        return pizzasCreated;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Pizza{" +
-                "durchmesser=" + durchmesser +
-                ", isVeggy=" + isVeggy +
-                "} " + super.toString();
     }
 
     // G & S
