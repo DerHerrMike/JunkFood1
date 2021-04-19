@@ -65,7 +65,7 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
 
     public List<JunkFood> readAllLinesFromFileinList(Path path) throws IOException {
 
-        BufferedReader reader;
+        BufferedReader reader = null;
         List<JunkFood> allPizzasFromMenuFile = new ArrayList<>();
 
         if (Files.size(path) < 1) {
@@ -92,9 +92,12 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
                     allPizzasFromMenuFile.add(pizza);
                     line = reader.readLine();
                 }
-                reader.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                assert reader != null;
+                reader.close();
             }
         }
         return allPizzasFromMenuFile;

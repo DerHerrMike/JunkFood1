@@ -66,6 +66,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\com\mps\app\output\burger.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\com\mps\app\shop\Bestellung.java">
           <value>
             <Attribute>

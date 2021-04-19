@@ -66,7 +66,7 @@ public class HotDog extends JunkFood {
 
     public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
 
-        BufferedReader reader;
+        BufferedReader reader = null;
         List<JunkFood> allHotdogsFromMenuFile = new ArrayList<>();
 
         if (Files.size(path) < 1) {
@@ -93,9 +93,12 @@ public class HotDog extends JunkFood {
                     allHotdogsFromMenuFile.add(hotDog);
                     line = reader.readLine();
                 }
-                reader.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
+            }   finally {
+                assert reader != null;
+                reader.close();
             }
         }
         return allHotdogsFromMenuFile;

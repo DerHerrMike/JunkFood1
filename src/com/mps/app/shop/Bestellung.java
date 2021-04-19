@@ -68,7 +68,7 @@ public class Bestellung {
                     System.out.println();
                 }
             }
-            switch (auswahl) {      //TODO doesnt work
+            switch (auswahl) {      //TODO this is weird! TestBurger1 not being found, others are!
                 case 1 -> {
                     boolean available = false;
                     while (!available) {
@@ -76,9 +76,7 @@ public class Bestellung {
                         String burgerselected = scanner.nextLine();
                         for (JunkFood junkFood : burgerList) {
                             if (junkFood instanceof Burger) {
-                                //TEST
-                                System.out.println((junkFood.getName()));
-                                //END
+
                                 if (burgerselected.equalsIgnoreCase(junkFood.getName())) {
                                     setOrder(order, junkFood);
                                     System.out.println(getOrder().toString());
@@ -136,10 +134,10 @@ public class Bestellung {
                     }
                 }
 
-                case 9 -> furtherItemOrder = false;
-                default -> throw new IllegalStateException("Ungültige Auswahl: " + auswahl);
+               case 9 -> furtherItemOrder = false;
+              default -> throw new IllegalStateException("Ungültige Auswahl: " + auswahl);
             }
-            System.out.println();
+
             System.out.println("Weiteres fettiges JunkFood bestellen (j/n)");
             String further = scanner.nextLine();
             if (further.equalsIgnoreCase("n")) {
