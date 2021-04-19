@@ -6,7 +6,6 @@ public class Lieferung {
 
     private int deliverytime;
     private final double deliveryCosts = 3.90;
-    private boolean freeDelivery;
 
 
     public Lieferung() {
@@ -17,6 +16,16 @@ public class Lieferung {
 
         Random r = new Random();
         return (r.nextInt(30) + 20);
+    }
+
+    public double getTotal(Bestellung bestellung) {
+        double total;
+        if (bestellung.getMinimumDeliveryAmount() <= bestellung.getGross()) {
+            return bestellung.getGross();
+        }else{
+            total = bestellung.getGross()+getDeliveryCosts();
+        }
+        return total;
     }
 
     //G&S
@@ -32,20 +41,4 @@ public class Lieferung {
         return deliveryCosts;
     }
 
-    public boolean isFreeDelivery() {
-        return freeDelivery;
-    }
-
-    public void setFreeDelivery(boolean freeDelivery) {
-        this.freeDelivery = freeDelivery;
-    }
-
-    @Override
-    public String toString() {
-        return "Lieferung{" +
-                "deliverytime=" + deliverytime +
-                ", deliveryCosts=" + deliveryCosts +
-                ", freeDelivery=" + freeDelivery +
-                '}';
-    }
 }

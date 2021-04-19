@@ -37,28 +37,10 @@ public class Driver {
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
-
         boolean quit = false;
         printInstructions();
         while (!quit) {
-            int choice = 9;
-            boolean correctSelection = false;
-            while (!correctSelection) {
-                System.out.println("Bitte Auswahl treffen: ");
-                String selection = scanner.nextLine();
-                if (selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("5") || selection.equals("9")) {
-                    choice = Integer.parseInt(selection);
-                    correctSelection = true;
-                } else {
-                    System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
-                    String exit = scanner.nextLine();
-                    if (exit.equalsIgnoreCase("x")) {
-                        System.out.println("Programm wird beendet!");
-                        System.exit(0);
-                    }
-                }
-            }
-
+            int choice = getChoice(scanner);
             switch (choice) {
                 case 0 -> printInstructions();
                 case 1 -> b.create(scanner);
@@ -79,12 +61,41 @@ public class Driver {
                     productsOrdered = o.ordering(burgersFromFile, pizzasFromFile, hotdogsFromFile);
                     l.setDeliverytime(l.deliveryRand());
                     int time = l.getDeliverytime();
-                    Bestellung.displayOrder(o, productsOrdered, time);
+                    double total = l.getTotal(o);
+                    if (total<o.getMinimumDeliveryAmount()){
+                        Bestellung.displayOrderBelowDelivery(o, l, productsOrdered, time);
+                    } else {
+                        Bestellung.displayOrder(o, productsOrdered, time);
+                    }
                 }
-                case 9 -> quit = true;
-                default -> throw new IllegalStateException("Unexpected value: " + choice);
+                case 9 -> {
+                    System.out.println("Danke, dass du bei MegaMike vorbeigeschaut hast! Programm wird beendet.");
+                    quit = true;
+                }
+                default -> throw new IllegalStateException("Ungültiger Wert: " + choice);
             }
         }
+    }
+
+    private static int getChoice(Scanner scanner) {
+        int choice = 9;
+        boolean correctSelection = false;
+        while (!correctSelection) {
+            System.out.println("Bitte Auswahl treffen: ");
+            String selection = scanner.nextLine();
+            if (selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("5") || selection.equals("9")) {
+                choice = Integer.parseInt(selection);
+                correctSelection = true;
+            } else {
+                System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
+                String exit = scanner.nextLine();
+                if (exit.equalsIgnoreCase("x")) {
+                    System.out.println("Programm wird beendet!");
+                    System.exit(0);
+                }
+            }
+        }
+        return choice;
     }
 
 
