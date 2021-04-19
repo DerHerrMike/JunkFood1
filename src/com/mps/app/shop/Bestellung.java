@@ -68,10 +68,11 @@ public class Bestellung {
                     System.out.println();
                 }
             }
-            switch (auswahl) {      //TODO this is weird! TestBurger1 not being found, others are!
+            switch (auswahl) {      //TODO this is weird! first item in list is never found, others are!
                 case 1 -> {
                     boolean available = false;
                     while (!available) {
+
                         System.out.println("Bitte den Namen des Burgers eingeben: ");
                         String burgerselected = scanner.nextLine();
                         for (JunkFood junkFood : burgerList) {
@@ -90,18 +91,24 @@ public class Bestellung {
                         if (available) {
                             break;
                         } else {
-                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Weiter mit Enter!");
-                            scanner.nextLine();
+                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
+                            String exit = scanner.nextLine();
+                            if (exit.equalsIgnoreCase("x")){
+                                System.out.println("Programm wird beendet!");
+                                System.exit(0);
+                            }
                         }
                     }
                 }
                 case 2 -> {
                     boolean available = false;
                     while (!available) {
+
                         System.out.println("Bitte den Namen der Pizza eingeben: ");
                         String pizzaselected = scanner.nextLine();
                         for (JunkFood junkFood : pizzaList) {
                             if (junkFood instanceof Pizza) {
+
                                 if (pizzaselected.equalsIgnoreCase(junkFood.getName())) {
                                     setOrder(order, junkFood);
                                     System.out.println(getOrder().toString());
@@ -115,27 +122,49 @@ public class Bestellung {
                         if (available) {
                             break;
                         } else {
-                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Weiter mit Enter!");
-                            scanner.nextLine();
+                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
+                            String exit = scanner.nextLine();
+                            if (exit.equalsIgnoreCase("x")){
+                                System.out.println("Programm wird beendet!");
+                                System.exit(0);
+                            }
                         }
                     }
                 }
                 case 3 -> {
                     boolean available = false;
                     while (!available) {
+
                         System.out.println("Bitte den Namen des HotDogs eingeben: ");
                         String hotdogselected = scanner.nextLine();
-                        if (hotdogselected.equalsIgnoreCase(hotDogList.get(0).getName())) {
-                            setOrder(order, pizzaList.get(0));
-                            available = true;
+                        for (JunkFood junkFood : hotDogList) {
+                            if (junkFood instanceof HotDog) {
+
+                                if (hotdogselected.equalsIgnoreCase(junkFood.getName())) {
+                                    setOrder(order, junkFood);
+                                    System.out.println(getOrder().toString());
+                                    available = true;
+                                    break;
+                                }
+                            } else {
+                                System.out.println("Wrong JunkFood Item in HotDog List");
+                            }
+                        }
+                        if (available) {
+                            break;
                         } else {
-                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen: ");
+                            System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
+                            String exit = scanner.nextLine();
+                            if (exit.equalsIgnoreCase("x")){
+                                System.out.println("Programm wird beendet!");
+                                System.exit(0);
+                            }
                         }
                     }
                 }
 
-               case 9 -> furtherItemOrder = false;
-              default -> throw new IllegalStateException("Ungültige Auswahl: " + auswahl);
+                case 9 -> furtherItemOrder = false;
+                default -> throw new IllegalStateException("Ungültige Auswahl: " + auswahl);
             }
 
             System.out.println("Weiteres fettiges JunkFood bestellen (j/n)");
