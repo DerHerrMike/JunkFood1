@@ -6,14 +6,13 @@ import com.mps.app.junkfood.JunkFood;
 import com.mps.app.junkfood.Pizza;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class Bestellung {
 
     private List<JunkFood> order = new ArrayList<>();
-    private double gross;
+    private double gross = 0.0f;
     private final double minimumDeliveryAmount = 14.90;
 
 
@@ -80,7 +79,9 @@ public class Bestellung {
 
                                 if (burgerselected.equalsIgnoreCase(junkFood.getName())) {
                                     setOrder(order, junkFood);
-                                    System.out.println(getOrder().toString());
+                                    addGross(junkFood.getPrice());
+                                    System.out.println("Burger " + burgerselected + " wurde deiner Bestellung hinzugefügt!");
+                                    System.out.println();
                                     available = true;
                                     break;
                                 }
@@ -93,7 +94,7 @@ public class Bestellung {
                         } else {
                             System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
                             String exit = scanner.nextLine();
-                            if (exit.equalsIgnoreCase("x")){
+                            if (exit.equalsIgnoreCase("x")) {
                                 System.out.println("Programm wird beendet!");
                                 System.exit(0);
                             }
@@ -111,7 +112,9 @@ public class Bestellung {
 
                                 if (pizzaselected.equalsIgnoreCase(junkFood.getName())) {
                                     setOrder(order, junkFood);
-                                    System.out.println(getOrder().toString());
+                                    addGross(junkFood.getPrice());
+                                    System.out.println("Pizza " + pizzaselected + " wurde deiner Bestellung hinzugefügt!");
+                                    System.out.println();
                                     available = true;
                                     break;
                                 }
@@ -124,7 +127,7 @@ public class Bestellung {
                         } else {
                             System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
                             String exit = scanner.nextLine();
-                            if (exit.equalsIgnoreCase("x")){
+                            if (exit.equalsIgnoreCase("x")) {
                                 System.out.println("Programm wird beendet!");
                                 System.exit(0);
                             }
@@ -142,7 +145,9 @@ public class Bestellung {
 
                                 if (hotdogselected.equalsIgnoreCase(junkFood.getName())) {
                                     setOrder(order, junkFood);
-                                    System.out.println(getOrder().toString());
+                                    addGross(junkFood.getPrice());
+                                    System.out.println("HotDog "+ hotdogselected+" wurde deiner Bestellung hinzugefügt!");
+                                    System.out.println();
                                     available = true;
                                     break;
                                 }
@@ -155,7 +160,7 @@ public class Bestellung {
                         } else {
                             System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
                             String exit = scanner.nextLine();
-                            if (exit.equalsIgnoreCase("x")){
+                            if (exit.equalsIgnoreCase("x")) {
                                 System.out.println("Programm wird beendet!");
                                 System.exit(0);
                             }
@@ -183,8 +188,8 @@ public class Bestellung {
         return gross;
     }
 
-    public void setGross(double gross) {
-        this.gross = gross;
+    public void addGross(double gross) {
+    this.gross = getGross()+gross;
     }
 
     public double getMinimumDeliveryAmount() {

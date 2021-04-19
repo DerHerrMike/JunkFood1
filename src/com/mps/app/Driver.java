@@ -63,20 +63,37 @@ public class Driver {
                     productsOrdered=o.ordering(burgersFromFile, pizzasFromFile, hotdogsFromFile);
                     l.setDeliverytime(l.deliveryRand());
                     int time = l.getDeliverytime();
-                    System.out.println("Die Zustellung erfolgt in ca. " + time + " Minuten!");
-                    System.out.println(productsOrdered.toString());
+                    displayOrder(o, productsOrdered, time);
                 }
                 case 9 -> quit = true;
+                default -> throw new IllegalStateException("Unexpected value: " + choice);
             }
         }
     }
 
+    private static void displayOrder(Bestellung o, List<JunkFood> productsOrdered, int time) {
+        System.out.println();
+        System.out.println("************************************************");
+        System.out.println("Zusammenfassung deiner Bestellung:");
+        System.out.println();
+        for (JunkFood junkFood : productsOrdered) {
+            System.out.println(junkFood.getName()+", EUR "+junkFood.getPrice());
+
+        }
+        System.out.println();
+        System.out.println("Gesamtbetrag deiner Bestellung: EUR "+ o.getGross());
+        System.out.println();
+        System.out.println("Die Zustellung erfolgt in ca. " + time + " Minuten!");
+        System.out.println("************************************************");
+        System.out.println();
+    }
+
     public static void printInstructions() {
-        System.out.println("\nBitte wählen: ");
+        System.out.println("\nFunktionen: ");
         System.out.println("\t 0 - Auswahl anzeigen.");
         System.out.println("\t 1 - Burger erstellen");
         System.out.println("\t 2 - Pizza erstellen");
-        System.out.println("\t 3 - HotDog erstellen\"");
+        System.out.println("\t 3 - HotDog erstellen");
         System.out.println("\t 4 - Menü laden");
         System.out.println("\t 5 - Bestellen");
         System.out.println("\t 9 - Beenden");

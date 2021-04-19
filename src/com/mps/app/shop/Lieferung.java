@@ -16,7 +16,7 @@ public class Lieferung {
     public int deliveryRand(){
 
         Random r = new Random();
-        return (r.nextInt(30) + 15);
+        return (r.nextInt(30) + 20);
     }
 
     //G&S
