@@ -211,8 +211,15 @@ public class Bestellung {
         System.out.println("Zusammenfassung deiner Bestellung:");
         System.out.println();
         for (JunkFood junkFood : productsOrdered) {
-            System.out.println(junkFood.getName() + ", EUR " + junkFood.getPrice());
-
+            if (junkFood instanceof Burger) {
+                System.out.println("Burger " + junkFood.getName() + ", EUR " + junkFood.getPrice());
+            }
+            if (junkFood instanceof Pizza) {
+                System.out.println("Pizza " + junkFood.getName() + ", EUR " + junkFood.getPrice());
+            }
+            if (junkFood instanceof HotDog) {
+                System.out.println("Hot Dog " + junkFood.getName() + ", EUR " + junkFood.getPrice());
+            }
         }
         System.out.println();
         System.out.printf("Gesamtbetrag deiner Bestellung: EUR %.2f%n", o.getGross());
@@ -230,13 +237,20 @@ public class Bestellung {
         System.out.println("Zusammenfassung deiner Bestellung:");
         System.out.println();
         for (JunkFood junkFood : productsOrdered) {
-
-            System.out.println(junkFood.getName() + ", EUR " + junkFood.getPrice());
+            if (junkFood instanceof Burger) {
+                System.out.println("Burger " + junkFood.getName() + ", EUR " + junkFood.getPrice());
+            }
+            if (junkFood instanceof Pizza) {
+                System.out.println("Pizza " + junkFood.getName() + ", EUR " + junkFood.getPrice());
+            }
+            if (junkFood instanceof HotDog) {
+                System.out.println("Hot Dog " + junkFood.getName() + ", EUR " + junkFood.getPrice());
+            }
         }
         System.out.println();
-        System.out.printf("Die Zustellgebühr von EUR %f wurde der Rechnung hinzugefügt!%n", l.getDeliveryCosts());
+        System.out.printf("Die Zustellgebühr von EUR %.2f wurde der Rechnung hinzugefügt!%n", l.getDeliveryCosts());
         System.out.println();
-        System.out.printf("Rechnungsbetrag gesamt EUR: %f%n", total);
+        System.out.printf("Rechnungsbetrag gesamt EUR: %.2f%n", total);
         System.out.println("***************************************");
         System.out.println();
     }
