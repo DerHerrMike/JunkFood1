@@ -33,16 +33,32 @@ public class Driver {
         List<JunkFood> burgersFromFile;
         List<JunkFood> pizzasFromFile;
         List<JunkFood> hotdogsFromFile;
-        List<JunkFood> productsOrdered= new ArrayList<>();
+        List<JunkFood> productsOrdered;
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
-        List<JunkFood> orderedItems = new ArrayList<>();
+
         boolean quit = false;
         printInstructions();
         while (!quit) {
-            System.out.println("Bitte Auswahl treffen: ");
-            int choice = scanner.nextInt();
+            int choice = 9;
+            boolean correctSelection = false;
+            while (!correctSelection) {
+                System.out.println("Bitte Auswahl treffen: ");
+                String selection = scanner.nextLine();
+                if (selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("5") || selection.equals("9")) {
+                    choice = Integer.parseInt(selection);
+                    correctSelection = true;
+                } else {
+                    System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
+                    String exit = scanner.nextLine();
+                    if (exit.equalsIgnoreCase("x")) {
+                        System.out.println("Programm wird beendet!");
+                        System.exit(0);
+                    }
+                }
+            }
+
             switch (choice) {
                 case 0 -> printInstructions();
                 case 1 -> b.create(scanner);
@@ -57,13 +73,13 @@ public class Driver {
                 }
                 case 5 -> {
                     burgersFromFile = b.readAllLinesFromFileInList(bpath);
-                    pizzasFromFile= p.readAllLinesFromFileinList(ppath);
+                    pizzasFromFile = p.readAllLinesFromFileinList(ppath);
                     hotdogsFromFile = h.readAllLinesFromFileInList(hpath);
-                    o.menu(b,p,h,burgersFromFile,pizzasFromFile, hotdogsFromFile);
-                    productsOrdered=o.ordering(burgersFromFile, pizzasFromFile, hotdogsFromFile);
+                    o.menu(b, p, h, burgersFromFile, pizzasFromFile, hotdogsFromFile);
+                    productsOrdered = o.ordering(burgersFromFile, pizzasFromFile, hotdogsFromFile);
                     l.setDeliverytime(l.deliveryRand());
                     int time = l.getDeliverytime();
-                    displayOrder(o, productsOrdered, time);
+                    Bestellung.displayOrder(o, productsOrdered, time);
                 }
                 case 9 -> quit = true;
                 default -> throw new IllegalStateException("Unexpected value: " + choice);
@@ -71,22 +87,6 @@ public class Driver {
         }
     }
 
-    private static void displayOrder(Bestellung o, List<JunkFood> productsOrdered, int time) {
-        System.out.println();
-        System.out.println("************************************************");
-        System.out.println("Zusammenfassung deiner Bestellung:");
-        System.out.println();
-        for (JunkFood junkFood : productsOrdered) {
-            System.out.println(junkFood.getName()+", EUR "+junkFood.getPrice());
-
-        }
-        System.out.println();
-        System.out.println("Gesamtbetrag deiner Bestellung: EUR "+ o.getGross());
-        System.out.println();
-        System.out.println("Die Zustellung erfolgt in ca. " + time + " Minuten!");
-        System.out.println("************************************************");
-        System.out.println();
-    }
 
     public static void printInstructions() {
         System.out.println("\nFunktionen: ");
@@ -98,6 +98,5 @@ public class Driver {
         System.out.println("\t 5 - Bestellen");
         System.out.println("\t 9 - Beenden");
     }
-
 
 }

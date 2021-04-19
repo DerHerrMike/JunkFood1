@@ -157,15 +157,9 @@ public class Burger extends JunkFood {
 
     public void displaySize(int size) {
         switch (size) {
-            case 1:
-                System.out.println("Standard");
-                break;
-            case 2:
-                System.out.println("Super");
-                break;
-            case 3:
-                System.out.println("Mega");
-                break;
+            case 1 -> System.out.println("Standard");
+            case 2 -> System.out.println("Super");
+            case 3 -> System.out.println("Mega");
         }
     }
 

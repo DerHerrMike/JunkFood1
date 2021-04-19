@@ -45,12 +45,8 @@ public class HotDog extends JunkFood {
         System.out.println("Wurst wählen (1 für Frankfurter, 2 für Bratwurst): ");
         int sausage = scanner.nextInt();
         switch (sausage) {
-            case 1:
-                setSausageName("Frankfurter");
-                break;
-            case 2:
-                setSausageName("Bratwurst");
-                break;
+            case 1 -> setSausageName("Frankfurter");
+            case 2 -> setSausageName("Bratwurst");
         }
         scanner.nextLine();
         System.out.println("XXL (j/n): ");

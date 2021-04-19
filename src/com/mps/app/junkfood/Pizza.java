@@ -42,13 +42,10 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
         scanner.nextLine();
         System.out.println("Durchmesser (1 für 25cm, 2 für 30cm, 3 für 40cm): ");
         int diameter = scanner.nextInt();
-        switch (diameter){
-            case 1: setDurchmesser(25);
-            break;
-            case 2: setDurchmesser(30);
-            break;
-            case 3: setDurchmesser(40);
-            break;
+        switch (diameter) {
+            case 1 -> setDurchmesser(25);
+            case 2 -> setDurchmesser(30);
+            case 3 -> setDurchmesser(40);
         }
         scanner.nextLine();
         System.out.println("Extra Käse (j/n): ");
