@@ -27,7 +27,7 @@ public class HotDog extends JunkFood {
         this.xxl = xxl;
     }
 
-
+@Override
     public void create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
         Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\hotdog.csv");
         scanner.nextLine();
