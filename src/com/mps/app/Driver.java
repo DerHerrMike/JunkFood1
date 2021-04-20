@@ -25,7 +25,7 @@ public class Driver {
         HotDog h = new HotDog();
         Bestellung o = new Bestellung();
         Lieferung l = new Lieferung();
-        Scanner scanner = new Scanner(System.in);
+
         Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\menu.csv");
         Path bpath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\burger.csv");
         Path ppath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\pizza.csv");
@@ -43,14 +43,12 @@ public class Driver {
         switch (identity) {
             case 1 -> {   //Customer
                 while (!quit) {
-                    int choice = getChoiceCustomer(scanner);
+                    int choice = getChoiceCustomer();
                     switch (choice) {
 
-                        case 0 -> printInstructionsCustomer();
                         case 1 -> {
                             loadMenu(b, p, h, bpath, ppath, hpath);
                             System.out.println("Alle verfügbaren Produkte ausgegeben! Zurück mit Enter!");
-                            scanner.nextLine();
                         }
                         case 2 -> {
                             burgersFromFile = b.readAllLinesFromFileInList(bpath);
@@ -61,10 +59,14 @@ public class Driver {
                             l.setDeliverytime(l.deliveryRand());
                             int time = l.getDeliverytime();
                             double total = l.getTotal(o);
-                            if (total < o.getMinimumDeliveryAmount()) {
-                                Bestellung.displayOrderBelowDelivery(o, l, productsOrdered, time);
-                            } else {
-                                Bestellung.displayOrder(o, productsOrdered, time);
+                            if(total>4){
+                                if (total < o.getMinimumDeliveryAmount()) {
+                                    Bestellung.displayOrderBelowDelivery(o, l, productsOrdered, time);
+                                } else {
+                                    Bestellung.displayOrder(o, productsOrdered, time);
+                                }
+                            }else {
+                                quit = true;
                             }
                         }
                         case 9 -> {
@@ -77,17 +79,15 @@ public class Driver {
             }
             case 2 -> {//admin
                 while (!quit) {
-
-                    int choice = getChoiceAdmin(scanner);
+                    Scanner scanner = new Scanner(System.in);
+                    int choice = getChoiceAdmin();
                     switch (choice) {
-                        case 0 -> printInstructionsAdmin();
                         case 1 -> b.create(scanner);
                         case 2 -> p.create(scanner);
                         case 3 -> h.create(scanner);
                         case 4 -> {
                             loadMenu(b, p, h, bpath, ppath, hpath);
                             System.out.println("Alle verfügbaren Produkte ausgegeben! Zurück mit Enter!");
-                            scanner.nextLine();
                         }
                         case 9 -> {
                             System.out.println("Danke, dass du bei MegaMike vorbeigeschaut hast! Programm wird beendet.");
@@ -100,20 +100,21 @@ public class Driver {
         }
     }
 
-    private static int getChoiceCustomer(Scanner scanner) {
+    private static int getChoiceCustomer() {
 
         int choice = 9;
         boolean correctSelection = false;
         while (!correctSelection) {
-            scanner.nextLine();
+            Scanner scanner = new Scanner(System.in);
             System.out.println();
             System.out.println(" HAUPTMENÜ KUNDE: ");
-            System.out.println(" 0 - Auswahl anzeigen.");
-            System.out.println(" 1 - Menü laden");
+            System.out.println();
+            System.out.println(" 1 - Karte laden");
             System.out.println(" 2 - Bestellen");
             System.out.println(" 9 - Beenden");
-            System.out.println("Bitte Auswahl im Programm-Menü treffen (0, 1, 2, 9): ");
+            System.out.println("Bitte Auswahl im Programm-Menü treffen (1, 2, 9): ");
             String selection = scanner.nextLine();
+
             if (selection.equals("0") || selection.equals("1") || selection.equals("2") || selection.equals("9")) {
                 choice = Integer.parseInt(selection);
                 correctSelection = true;
@@ -129,22 +130,23 @@ public class Driver {
         return choice;
     }
 
-    private static int getChoiceAdmin(Scanner scanner) {
+    private static int getChoiceAdmin() {
 
         int choice = 9;
         boolean correctSelection = false;
         while (!correctSelection) {
-            scanner.nextLine();
+            Scanner scanner = new Scanner(System.in);
             System.out.println();
             System.out.println(" ADMIN HAUPTMENÜ: ");
-            System.out.println(" 0 - Auswahl anzeigen.");
+            System.out.println();
             System.out.println(" 1 - Burger erstellen");
             System.out.println(" 2 - Pizza erstellen");
             System.out.println(" 3 - HotDog erstellen");
-            System.out.println(" 4 - Menü laden");
+            System.out.println(" 4 - Karte laden");
             System.out.println(" 9 - Beenden");
-            System.out.println("Bitte Auswahl im Programm-Menü treffen (0, 1, 2, 3, 4, 9): ");
+            System.out.println("Bitte Auswahl im Programm-Menü treffen (1, 2, 3, 4, 9): ");
             String selection = scanner.nextLine();
+
             if (selection.equals("0") || selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("9")) {
                 choice = Integer.parseInt(selection);
                 correctSelection = true;
@@ -193,7 +195,7 @@ public class Driver {
             if (caseNum == 1) {
                 return 1;
             } else {
-                System.out.println("Bitte Admin Passwort eingeben: ");
+                System.out.println("Bitte Admin Passwort eingeben oder zurück mit 'exit': ");
                 String pw = scanner.nextLine();
                 switch (pw) {
                     case "Fett" -> {

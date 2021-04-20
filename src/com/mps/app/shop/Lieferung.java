@@ -19,6 +19,7 @@ public class Lieferung {
 
     public double getTotal(Bestellung bestellung) {
         double total;
+
         if (bestellung.getMinimumDeliveryAmount() <= bestellung.getGross()) {
             return bestellung.getGross();
         }else{
