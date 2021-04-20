@@ -16,7 +16,6 @@ import java.util.Scanner;
 
 public class Driver {
 
-    private static final String password = "Fett";
 
     public static void main(String[] args) throws IOException {
 
@@ -66,7 +65,9 @@ public class Driver {
                                     Bestellung.displayOrder(o, productsOrdered, time);
                                 }
                             }else {
-                                quit = true;
+                                System.out.println("Kein Produkt bestellt. Weiter mit Enter!");
+                                Scanner scanner = new Scanner(System.in);
+                                scanner.nextLine();
                             }
                         }
                         case 9 -> {
@@ -201,9 +202,7 @@ public class Driver {
                     case "Fett" -> {
                         return 2;
                     }
-                    case "exit" -> {
-                        identifyUser();
-                    }
+                    case "exit" -> identifyUser();
                     default -> {
                         System.out.println("Ungültiges Passwort! Zurück mit Enter!");
                         scanner.nextLine();
@@ -219,31 +218,6 @@ public class Driver {
         b.displayJunkFood(b.readAllLinesFromFileInList(bpath));
         p.displayJunkFood(p.readAllLinesFromFileinList(ppath));
         h.displayJunkFood(h.readAllLinesFromFileInList(hpath));
-    }
-
-
-    public static void printInstructionsCustomer() {
-        System.out.println();
-        System.out.println(" HAUPTMENÜ KUNDE: ");
-        System.out.println(" 0 - Auswahl anzeigen.");
-        System.out.println(" 1 - Menü laden");
-        System.out.println(" 2 - Bestellen");
-        System.out.println(" 9 - Beenden");
-    }
-
-    public static void printInstructionsAdmin() {
-        System.out.println();
-        System.out.println(" ADMIN HAUPTMENÜ: ");
-        System.out.println(" 0 - Auswahl anzeigen.");
-        System.out.println(" 1 - Burger erstellen");
-        System.out.println(" 2 - Pizza erstellen");
-        System.out.println(" 3 - HotDog erstellen");
-        System.out.println(" 4 - Menü laden");
-        System.out.println(" 9 - Beenden");
-    }
-
-    public static String getPassword() {
-        return password;
     }
 
 }
