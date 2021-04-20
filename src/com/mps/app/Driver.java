@@ -40,20 +40,17 @@ public class Driver {
         boolean quit = false;
         printWelcome();
         int identity = identifyUser();
-        if (identity == 2
-        ) {
-            printInstructionsOwner();
-        } else {
-            printInstructionsCustomer();
-        }
         switch (identity) {
             case 1 -> {   //Customer
                 while (!quit) {
-                    int choice = getChoice(scanner);
+                    int choice = getChoiceCustomer(scanner);
                     switch (choice) {
+
                         case 0 -> printInstructionsCustomer();
                         case 1 -> {
                             loadMenu(b, p, h, bpath, ppath, hpath);
+                            System.out.println("Alle verfügbaren Produkte ausgegeben! Zurück mit Enter!");
+                            scanner.nextLine();
                         }
                         case 2 -> {
                             burgersFromFile = b.readAllLinesFromFileInList(bpath);
@@ -80,14 +77,17 @@ public class Driver {
             }
             case 2 -> {//admin
                 while (!quit) {
-                    int choice = getChoice(scanner);
+
+                    int choice = getChoiceAdmin(scanner);
                     switch (choice) {
-                        case 0 -> printInstructionsOwner();
+                        case 0 -> printInstructionsAdmin();
                         case 1 -> b.create(scanner);
                         case 2 -> p.create(scanner);
                         case 3 -> h.create(scanner);
                         case 4 -> {
                             loadMenu(b, p, h, bpath, ppath, hpath);
+                            System.out.println("Alle verfügbaren Produkte ausgegeben! Zurück mit Enter!");
+                            scanner.nextLine();
                         }
                         case 9 -> {
                             System.out.println("Danke, dass du bei MegaMike vorbeigeschaut hast! Programm wird beendet.");
@@ -100,12 +100,64 @@ public class Driver {
         }
     }
 
-    private static void loadMenu(Burger b, Pizza p, HotDog h, Path bpath, Path ppath, Path hpath) throws IOException {
-        System.out.println();
-        System.out.println("Die Speisekarte wurde geladen!");
-        b.displayJunkFood(b.readAllLinesFromFileInList(bpath));
-        p.displayJunkFood(p.readAllLinesFromFileinList(ppath));
-        h.displayJunkFood(h.readAllLinesFromFileInList(hpath));
+    private static int getChoiceCustomer(Scanner scanner) {
+
+        int choice = 9;
+        boolean correctSelection = false;
+        while (!correctSelection) {
+            scanner.nextLine();
+            System.out.println();
+            System.out.println(" HAUPTMENÜ KUNDE: ");
+            System.out.println(" 0 - Auswahl anzeigen.");
+            System.out.println(" 1 - Menü laden");
+            System.out.println(" 2 - Bestellen");
+            System.out.println(" 9 - Beenden");
+            System.out.println("Bitte Auswahl im Programm-Menü treffen (0, 1, 2, 9): ");
+            String selection = scanner.nextLine();
+            if (selection.equals("0") || selection.equals("1") || selection.equals("2") || selection.equals("9")) {
+                choice = Integer.parseInt(selection);
+                correctSelection = true;
+            } else {
+                System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
+                String exit = scanner.nextLine();
+                if (exit.equalsIgnoreCase("x")) {
+                    System.out.println("Programm wird beendet!");
+                    System.exit(0);
+                }
+            }
+        }
+        return choice;
+    }
+
+    private static int getChoiceAdmin(Scanner scanner) {
+
+        int choice = 9;
+        boolean correctSelection = false;
+        while (!correctSelection) {
+            scanner.nextLine();
+            System.out.println();
+            System.out.println(" ADMIN HAUPTMENÜ: ");
+            System.out.println(" 0 - Auswahl anzeigen.");
+            System.out.println(" 1 - Burger erstellen");
+            System.out.println(" 2 - Pizza erstellen");
+            System.out.println(" 3 - HotDog erstellen");
+            System.out.println(" 4 - Menü laden");
+            System.out.println(" 9 - Beenden");
+            System.out.println("Bitte Auswahl im Programm-Menü treffen (0, 1, 2, 3, 4, 9): ");
+            String selection = scanner.nextLine();
+            if (selection.equals("0") || selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("9")) {
+                choice = Integer.parseInt(selection);
+                correctSelection = true;
+            } else {
+                System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
+                String exit = scanner.nextLine();
+                if (exit.equalsIgnoreCase("x")) {
+                    System.out.println("Programm wird beendet!");
+                    System.exit(0);
+                }
+            }
+        }
+        return choice;
     }
 
     public static void printWelcome() {
@@ -130,6 +182,7 @@ public class Driver {
             System.out.println();
             System.out.println("Wähle den Anwendungsfall. 1 für Kunde oder 2 für Administrator");
             String useCase = scanner.nextLine();
+
             while (!(useCase.equals("1") || useCase.equals("2"))) {
                 System.out.println("Bitte ganzzahligen Wert 1 oder 2 wählen!");
                 useCase = scanner.nextLine();
@@ -158,45 +211,33 @@ public class Driver {
         }
     }
 
+    private static void loadMenu(Burger b, Pizza p, HotDog h, Path bpath, Path ppath, Path hpath) throws IOException {
+        System.out.println();
+        System.out.println("Die Speisekarte wurde geladen!");
+        b.displayJunkFood(b.readAllLinesFromFileInList(bpath));
+        p.displayJunkFood(p.readAllLinesFromFileinList(ppath));
+        h.displayJunkFood(h.readAllLinesFromFileInList(hpath));
+    }
+
+
     public static void printInstructionsCustomer() {
         System.out.println();
-        System.out.println("\nHAUPTMENÜ KUNDE: ");
-        System.out.println("\t 0 - Auswahl anzeigen.");
-        System.out.println("\t 1 - Menü laden");
-        System.out.println("\t 2 - Bestellen");
-        System.out.println("\t 9 - Beenden");
+        System.out.println(" HAUPTMENÜ KUNDE: ");
+        System.out.println(" 0 - Auswahl anzeigen.");
+        System.out.println(" 1 - Menü laden");
+        System.out.println(" 2 - Bestellen");
+        System.out.println(" 9 - Beenden");
     }
 
-    public static void printInstructionsOwner() {
+    public static void printInstructionsAdmin() {
         System.out.println();
-        System.out.println("\nADMIN HAUPTMENÜ: ");
-        System.out.println("\t 0 - Auswahl anzeigen.");
-        System.out.println("\t 1 - Burger erstellen");
-        System.out.println("\t 2 - Pizza erstellen");
-        System.out.println("\t 3 - HotDog erstellen");
-        System.out.println("\t 4 - Menü laden");
-        System.out.println("\t 9 - Beenden");
-    }
-
-    private static int getChoice(Scanner scanner) {
-        int choice = 9;
-        boolean correctSelection = false;
-        while (!correctSelection) {
-            System.out.println("Bitte Auswahl treffen: ");
-            String selection = scanner.nextLine();
-            if (selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("5") || selection.equals("9")) {
-                choice = Integer.parseInt(selection);
-                correctSelection = true;
-            } else {
-                System.out.println("Fehlerhafte Eingabe, bitte nochmals versuchen. Abbruch mit X, weiter mit Enter!");
-                String exit = scanner.nextLine();
-                if (exit.equalsIgnoreCase("x")) {
-                    System.out.println("Programm wird beendet!");
-                    System.exit(0);
-                }
-            }
-        }
-        return choice;
+        System.out.println(" ADMIN HAUPTMENÜ: ");
+        System.out.println(" 0 - Auswahl anzeigen.");
+        System.out.println(" 1 - Burger erstellen");
+        System.out.println(" 2 - Pizza erstellen");
+        System.out.println(" 3 - HotDog erstellen");
+        System.out.println(" 4 - Menü laden");
+        System.out.println(" 9 - Beenden");
     }
 
     public static String getPassword() {
