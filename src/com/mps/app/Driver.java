@@ -62,8 +62,8 @@ public class Driver {
                                     Bestellung.displayOrderBelowDelivery(o, l, productsOrdered, time);
                                 } else {
                                     Bestellung.displayOrder(o, productsOrdered, time);
-                                    r.saveOrderToFile( productsOrdered);
                                 }
+                                r.saveOrderToFile( productsOrdered);
                             } else {
                                 System.out.println("Kein Produkt bestellt. Weiter mit Enter!");
                                 scanner.nextLine();
@@ -89,8 +89,12 @@ public class Driver {
                             loadMenu(b, p, h, bpath, ppath, hpath);
                             System.out.println("Alle verfügbaren Produkte ausgegeben! Zurück mit Enter!");
                         }
+                        case 5 -> {
+
+                            r.displayTurnover(r.calcLoadedTurnover(r.loadTurnover(path)), scanner);
+                        }
                         case 9 -> {
-                            System.out.println("Danke, dass du bei MegaMike vorbeigeschaut hast! Programm wird beendet.");
+                            System.out.println("Programm wird beendet.");
                             quit = true;
                         }
                         default -> throw new IllegalStateException("Ungültiger Wert: " + choice);
@@ -143,11 +147,12 @@ public class Driver {
             System.out.println(" 2 - Pizza erstellen");
             System.out.println(" 3 - HotDog erstellen");
             System.out.println(" 4 - Karte laden");
+            System.out.println(" 5 - Umsatz anzeigen");
             System.out.println(" 9 - Beenden");
             System.out.println("Bitte Auswahl im Programm-Menü treffen (1, 2, 3, 4, 9): ");
             String selection = scanner.nextLine();
 
-            if (selection.equals("0") || selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("9")) {
+            if (selection.equals("0") || selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("5") ||selection.equals("9")) {
                 choice = Integer.parseInt(selection);
                 correctSelection = true;
             } else {
