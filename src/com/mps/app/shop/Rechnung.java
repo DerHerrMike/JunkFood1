@@ -1,30 +1,94 @@
 package com.mps.app.shop;
 
+import com.mps.app.junkfood.Burger;
+import com.mps.app.junkfood.HotDog;
+import com.mps.app.junkfood.JunkFood;
+import com.mps.app.junkfood.Pizza;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Rechnung {
 
-    String item;
-    String name;
-    String price;
-    double gross;
-    double total;
+    private String item;
+    private String name;
+    private String price;
+    private double gross;
 
-    public Rechnung(String item, String name, String price, double gross, double total) {
+
+    public Rechnung(String item, String name, String price, double gross) {
         this.item = item;
         this.name = name;
         this.price = price;
         this.gross = gross;
-        this.total = total;
+
     }
 
     public Rechnung() {
     }
 
-    public void writeFile(Path path) throws IOException {
+    public List<String> saveOrderToFile(List<JunkFood> productsOrdered) throws IOException {
+        Path path = Paths.get("resources/turnover.csv");
+        String item;
+        String name;
+        String price;
+        List<String> savedOrder = new ArrayList<>();
+        for (JunkFood junkFood : productsOrdered) {
+            if (junkFood instanceof Burger) {
+                item = "Burger";
+                name = junkFood.getName();
+                price = String.valueOf(junkFood.getPrice());
+                savedOrder.add(item);
+                savedOrder.add(name);
+                savedOrder.add(price);
+                setItem(item);
+                setName(name);
+                setPrice(price);
+
+            }
+            if (junkFood instanceof Pizza) {
+                item = "Pizza";
+                name = junkFood.getName();
+                price = String.valueOf(junkFood.getPrice());
+                savedOrder.add(item);
+                savedOrder.add(name);
+                savedOrder.add(price);
+                setItem(item);
+                setName(name);
+                setPrice(price);
+            }
+            if (junkFood instanceof HotDog) {
+                item = "HotDog";
+                name = junkFood.getName();
+                price = String.valueOf(junkFood.getPrice());
+                savedOrder.add(item);
+                savedOrder.add(name);
+                savedOrder.add(price);
+                setItem(item);
+                setName(name);
+                setPrice(price);
+            }
+            double gross = 0;
+            for (JunkFood junk : productsOrdered) {
+                gross = gross + getGross();
+            }
+            setGross(gross);
+            Rechnung rechnung = new Rechnung(getItem(), getName(), getPrice(), getGross());
+            rechnung.writeFile(path);
+        }
+        for (String s : savedOrder) {
+            System.out.println(s);
+        }
+        return savedOrder;
+    }
+
+
+    private void writeFile(Path path) throws IOException {
         String object = convert();
 
         if (Files.notExists(path)) {
@@ -39,16 +103,13 @@ public class Rechnung {
 
     public String convert() {
 
-        return this.getName() +
+        return this.getItem() +
                 "," +
-
+                this.getName() +
                 "," +
                 this.getPrice() +
                 "," +
-
-                "," +
-
-                "\n";
+                this.getGross() + "\n";
     }
 
     //G&S
@@ -86,11 +147,4 @@ public class Rechnung {
         this.gross = gross;
     }
 
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
 }

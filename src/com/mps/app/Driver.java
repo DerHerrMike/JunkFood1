@@ -24,7 +24,7 @@ public class Driver {
         Scanner scanner = new Scanner(System.in);
 
         //relativerpfad unter project root/resources
-        Path path = Paths.get("resources/menu.csv");
+        Path path = Paths.get("resources/turnover.csv");
         Path bpath = Paths.get("resources/burger.csv");
         Path ppath = Paths.get("resources/pizza.csv");
         Path hpath = Paths.get("resources/hotdog.csv");
@@ -62,8 +62,7 @@ public class Driver {
                                     Bestellung.displayOrderBelowDelivery(o, l, productsOrdered, time);
                                 } else {
                                     Bestellung.displayOrder(o, productsOrdered, time);
-                                    o.saveOrder( productsOrdered,r);
-                                    Rechnung rechnung = new Rechnung();
+                                    r.saveOrderToFile( productsOrdered);
                                 }
                             } else {
                                 System.out.println("Kein Produkt bestellt. Weiter mit Enter!");

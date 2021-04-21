@@ -80,6 +80,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\com\mps\app\shop\Rechnung.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
