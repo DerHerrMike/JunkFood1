@@ -24,7 +24,7 @@ public class Driver {
         HotDog h = new HotDog();
         Bestellung o = new Bestellung();
         Lieferung l = new Lieferung();
-
+        Scanner scanner = new Scanner(System.in);
         Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\menu.csv");
         Path bpath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\burger.csv");
         Path ppath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\pizza.csv");
@@ -38,11 +38,11 @@ public class Driver {
         }
         boolean quit = false;
         printWelcome();
-        int identity = identifyUser();
+        int identity = identifyUser(scanner);
         switch (identity) {
             case 1 -> {   //Customer
                 while (!quit) {
-                    int choice = getChoiceCustomer();
+                    int choice = getChoiceCustomer( scanner);
                     switch (choice) {
 
                         case 1 -> {
@@ -58,15 +58,14 @@ public class Driver {
                             l.setDeliverytime(l.deliveryRand());
                             int time = l.getDeliverytime();
                             double total = l.getTotal(o);
-                            if(total>4){
+                            if (total > 4) {
                                 if (total < o.getMinimumDeliveryAmount()) {
                                     Bestellung.displayOrderBelowDelivery(o, l, productsOrdered, time);
                                 } else {
                                     Bestellung.displayOrder(o, productsOrdered, time);
                                 }
-                            }else {
+                            } else {
                                 System.out.println("Kein Produkt bestellt. Weiter mit Enter!");
-                                Scanner scanner = new Scanner(System.in);
                                 scanner.nextLine();
                             }
                         }
@@ -80,8 +79,8 @@ public class Driver {
             }
             case 2 -> {//admin
                 while (!quit) {
-                    Scanner scanner = new Scanner(System.in);
-                    int choice = getChoiceAdmin();
+
+                    int choice = getChoiceAdmin(scanner);
                     switch (choice) {
                         case 1 -> b.create(scanner);
                         case 2 -> p.create(scanner);
@@ -101,12 +100,12 @@ public class Driver {
         }
     }
 
-    private static int getChoiceCustomer() {
+    private static int getChoiceCustomer(Scanner scanner) {
 
         int choice = 9;
         boolean correctSelection = false;
         while (!correctSelection) {
-            Scanner scanner = new Scanner(System.in);
+
             System.out.println();
             System.out.println(" HAUPTMENÜ KUNDE: ");
             System.out.println();
@@ -131,12 +130,12 @@ public class Driver {
         return choice;
     }
 
-    private static int getChoiceAdmin() {
+    private static int getChoiceAdmin(Scanner scanner) {
 
         int choice = 9;
         boolean correctSelection = false;
         while (!correctSelection) {
-            Scanner scanner = new Scanner(System.in);
+
             System.out.println();
             System.out.println(" ADMIN HAUPTMENÜ: ");
             System.out.println();
@@ -176,9 +175,8 @@ public class Driver {
     }
 
 
-    public static int identifyUser() {
+    public static int identifyUser(Scanner scanner) {
 
-        Scanner scanner = new Scanner(System.in);
         int caseNum;
 
         while (true) {
@@ -202,7 +200,7 @@ public class Driver {
                     case "Fett" -> {
                         return 2;
                     }
-                    case "exit" -> identifyUser();
+                    case "exit" -> identifyUser(scanner);
                     default -> {
                         System.out.println("Ungültiges Passwort! Zurück mit Enter!");
                         scanner.nextLine();
