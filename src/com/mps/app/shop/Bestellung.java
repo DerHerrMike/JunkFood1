@@ -73,8 +73,8 @@ public class Bestellung {
                         String burgerselected = scanner.nextLine();
                         for (JunkFood junkFood : burgerList) {
                             if (junkFood instanceof Burger) {
-
-                                if (burgerselected.equalsIgnoreCase(junkFood.getName())) {
+                                String name = junkFood.getName();
+                                if (burgerselected.trim().equalsIgnoreCase(junkFood.getName().trim())) {
                                     setOrder(order, junkFood);
                                     addGross(junkFood.getPrice());
                                     System.out.println("Burger " + junkFood.getName() + " wurde deiner Bestellung hinzugefügt!");

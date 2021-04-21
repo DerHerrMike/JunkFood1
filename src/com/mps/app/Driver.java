@@ -1,12 +1,7 @@
 package com.mps.app;
 
-import com.mps.app.junkfood.Burger;
-import com.mps.app.junkfood.HotDog;
-import com.mps.app.junkfood.JunkFood;
-import com.mps.app.junkfood.Pizza;
-import com.mps.app.shop.Bestellung;
-import com.mps.app.shop.Lieferung;
-import com.mps.app.shop.Rechnung;
+import com.mps.app.junkfood.*;
+import com.mps.app.shop.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +13,7 @@ import java.util.Scanner;
 public class Driver {
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
         Burger b = new Burger();
         Pizza p = new Pizza();

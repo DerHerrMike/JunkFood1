@@ -1,7 +1,8 @@
 package com.mps.app.junkfood;
 
+import com.mps.app.util.FileUtils;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,9 +18,6 @@ public class HotDog extends JunkFood {
     private boolean xxl;
     private List<HotDog> hotdogCreated = new ArrayList<>();
 
-    public HotDog() {
-    }
-
 
     public HotDog(String name, int calories, double price, String sausageName, boolean xxl) {
         super(name, calories, price);
@@ -27,9 +25,13 @@ public class HotDog extends JunkFood {
         this.xxl = xxl;
     }
 
-@Override
-    public void create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
-        Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\hotdog.csv");
+    public HotDog() {
+
+    }
+
+    @Override
+    public void create(Scanner scanner) throws Exception {       //inputmismatch catch fehlt hier
+        Path path = Paths.get("resources/hotdog.csv");
         scanner.nextLine();
         System.out.println("HotDog Name: ");
         String name = scanner.nextLine();
@@ -60,8 +62,6 @@ public class HotDog extends JunkFood {
     }
 
     public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
-
-        BufferedReader reader = null;
         List<JunkFood> allHotdogsFromMenuFile = new ArrayList<>();
 
         if (Files.size(path) < 1) {
@@ -69,9 +69,8 @@ public class HotDog extends JunkFood {
             return null;
         } else {
 
-            try {
-                reader = new BufferedReader(new FileReader(String.valueOf(path)));
-                String line = reader.readLine();
+            try (BufferedReader bufferedReader = FileUtils.getReader(path)) {
+                String line = FileUtils.skipBOM(bufferedReader.readLine());
                 while (line != null) {
                     String[] ausgeleseneZeile = line.split(",");
                     //HotDogName
@@ -86,17 +85,15 @@ public class HotDog extends JunkFood {
                     boolean xxl = Boolean.parseBoolean(ausgeleseneZeile[4]);
                     HotDog hotDog = new HotDog(name, calories, price, sausage, xxl);
                     allHotdogsFromMenuFile.add(hotDog);
-                    line = reader.readLine();
+                    line = bufferedReader.readLine();
                 }
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                assert reader != null;
-                reader.close();
+
             }
         }
         return allHotdogsFromMenuFile;
+
+
     }
 
     @Override

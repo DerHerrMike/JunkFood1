@@ -27,13 +27,13 @@ public abstract class JunkFood {
     }
 
 
-    protected abstract void create(Scanner scanner) throws IOException;
+    protected abstract void create(Scanner scanner) throws Exception;
 
     protected abstract void writeFile (Path path) throws IOException;
 
     protected abstract String convert();
 
-protected abstract void displayJunkFood(List<JunkFood> products);
+    protected abstract void displayJunkFood(List<JunkFood> products);
 
 
     // G & S

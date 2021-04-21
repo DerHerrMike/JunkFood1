@@ -1,7 +1,8 @@
 package com.mps.app.junkfood;
 
+import com.mps.app.util.FileUtils;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -101,7 +102,7 @@ public class Burger extends JunkFood {
 
     public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
 
-        BufferedReader reader = null;
+
         List<JunkFood> allBurgersFromMenuFile = new ArrayList<>();
 
         if (Files.size(path) < 1) {
@@ -109,9 +110,8 @@ public class Burger extends JunkFood {
             return null;
         } else {
 
-            try {
-                reader = new BufferedReader(new FileReader(String.valueOf(path)));
-                String line = reader.readLine();
+            try (BufferedReader bufferedReader = FileUtils.getReader(path)) {
+                String line = FileUtils.skipBOM(bufferedReader.readLine());
                 while (line != null) {
                     String[] ausgeleseneZeile = line.split(",");
                     //BurgerName
@@ -126,14 +126,11 @@ public class Burger extends JunkFood {
                     boolean cheese = Boolean.parseBoolean(ausgeleseneZeile[4]);
                     Burger burger = new Burger(name, calories, price, size, cheese);
                     allBurgersFromMenuFile.add(burger);
-                    line = reader.readLine();
+                    line = bufferedReader.readLine();
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                assert reader != null;
-                reader.close();
             }
         }
         return allBurgersFromMenuFile;
@@ -152,6 +149,7 @@ public class Burger extends JunkFood {
                 object.getBytes(),
                 StandardOpenOption.APPEND);
     }
+
 
 
     public String convertCheese(){
@@ -176,49 +174,6 @@ public class Burger extends JunkFood {
 
     public void setCheese(boolean cheese) {
         this.cheese = cheese;
-    }
-
-    @Override
-    public String toString() {
-        return ".Burger{" +
-                "size=" + size +
-                ", cheese=" + cheese +
-                "} " + super.toString();
-    }
-
-    @Override
-    public void printAttributes() {
-        super.printAttributes();
-    }
-
-    @Override
-    public String getName() {
-        return super.getName();
-    }
-
-    @Override
-    public void setName(String name) {
-        super.setName(name);
-    }
-
-    @Override
-    public int getCalories() {
-        return super.getCalories();
-    }
-
-    @Override
-    public void setCalories(int calories) {
-        super.setCalories(calories);
-    }
-
-    @Override
-    public double getPrice() {
-        return super.getPrice();
-    }
-
-    @Override
-    public void setPrice(double price) {
-        super.setPrice(price);
     }
 }
 

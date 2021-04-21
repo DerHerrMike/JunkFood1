@@ -1,7 +1,8 @@
 package com.mps.app.junkfood;
 
+import com.mps.app.util.FileUtils;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,7 +29,7 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
 
     @Override
     public void create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
-        Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\pizza.csv");
+        Path path = Paths.get("resources/pizza.csv");
         scanner.nextLine();
         System.out.println("Pizza Name: ");
         String name = scanner.nextLine();
@@ -62,7 +63,6 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
 
     public List<JunkFood> readAllLinesFromFileinList(Path path) throws IOException {
 
-        BufferedReader reader = null;
         List<JunkFood> allPizzasFromMenuFile = new ArrayList<>();
 
         if (Files.size(path) < 1) {
@@ -70,13 +70,12 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
             return null;
         } else {
 
-            try {
-                reader = new BufferedReader(new FileReader(String.valueOf(path)));
-                String line = reader.readLine();
+            try (BufferedReader reader = FileUtils.getReader(path)) {
+                String line = FileUtils.skipBOM(reader.readLine());
                 while (line != null) {
                     String[] ausgeleseneZeile = line.split(",");
                     //PName
-                    String name  = ausgeleseneZeile[0];
+                    String name = ausgeleseneZeile[0];
                     //P Calories
                     int calories = Integer.parseInt(ausgeleseneZeile[1]);
                     //P Price
@@ -92,9 +91,6 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
 
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                assert reader != null;
-                reader.close();
             }
         }
         return allPizzasFromMenuFile;
@@ -159,28 +155,6 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
 
             System.out.println();
         }
-    }
-
-
-    @Override
-    public void printAttributes() {
-        super.printAttributes();
-    }
-
-
-    @Override
-    public String getName() {
-        return super.getName();
-    }
-
-    @Override
-    public void setName(String name) {
-        super.setName(name);
-    }
-
-    @Override
-    public int getCalories() {
-        return super.getCalories();
     }
 
     @Override
