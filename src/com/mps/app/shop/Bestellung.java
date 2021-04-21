@@ -196,6 +196,59 @@ public class Bestellung {
         return order;
     }
 
+    public List<String> saveOrder(List<JunkFood> productsOrdered, Rechnung r) {
+
+        String item;
+        String name;
+        String price;
+        List<String> savedOrder = new ArrayList<>();
+        for (JunkFood junkFood : productsOrdered) {
+            if (junkFood instanceof Burger) {
+                item = "Burger";
+                name = junkFood.getName();
+                price = String.valueOf(junkFood.getPrice());
+                savedOrder.add(item);
+                savedOrder.add(name);
+                savedOrder.add(price);
+                r.setItem(item);
+                r.setName(name);
+                r.setPrice(price);
+
+            }
+            if (junkFood instanceof Pizza) {
+                item = "Pizza";
+                name = junkFood.getName();
+                price = String.valueOf(junkFood.getPrice());
+                savedOrder.add(item);
+                savedOrder.add(name);
+                savedOrder.add(price);
+                r.setItem(item);
+                r.setName(name);
+                r.setPrice(price);
+            }
+            if (junkFood instanceof HotDog) {
+                item = "HotDog";
+                name = junkFood.getName();
+                price = String.valueOf(junkFood.getPrice());
+                savedOrder.add(item);
+                savedOrder.add(name);
+                savedOrder.add(price);
+                r.setItem(item);
+                r.setName(name);
+                r.setPrice(price);
+            }
+            double gross = 0;
+            for (JunkFood junk : productsOrdered) {
+                gross = gross+getGross();
+            }
+            r.setGross(gross);
+        }
+        for (String s : savedOrder) {
+            System.out.println(s);
+        }
+        return savedOrder;
+    }
+
     public static void displayOrder(Bestellung o, List<JunkFood> productsOrdered, int time) {
         System.out.println();
         System.out.println("************************************************");

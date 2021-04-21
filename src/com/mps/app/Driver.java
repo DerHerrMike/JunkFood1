@@ -6,6 +6,7 @@ import com.mps.app.junkfood.JunkFood;
 import com.mps.app.junkfood.Pizza;
 import com.mps.app.shop.Bestellung;
 import com.mps.app.shop.Lieferung;
+import com.mps.app.shop.Rechnung;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,6 +25,7 @@ public class Driver {
         HotDog h = new HotDog();
         Bestellung o = new Bestellung();
         Lieferung l = new Lieferung();
+        Rechnung r = new Rechnung();
         Scanner scanner = new Scanner(System.in);
 
         //relativerpfad unter project root/resources
@@ -65,6 +67,8 @@ public class Driver {
                                     Bestellung.displayOrderBelowDelivery(o, l, productsOrdered, time);
                                 } else {
                                     Bestellung.displayOrder(o, productsOrdered, time);
+                                    o.saveOrder( productsOrdered,r);
+                                    Rechnung rechnung = new Rechnung();
                                 }
                             } else {
                                 System.out.println("Kein Produkt bestellt. Weiter mit Enter!");
