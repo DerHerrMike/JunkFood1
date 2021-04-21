@@ -25,10 +25,12 @@ public class Driver {
         Bestellung o = new Bestellung();
         Lieferung l = new Lieferung();
         Scanner scanner = new Scanner(System.in);
-        Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\menu.csv");
-        Path bpath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\burger.csv");
-        Path ppath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\pizza.csv");
-        Path hpath = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\hotdog.csv");
+
+        //relativerpfad unter project root/resources
+        Path path = Paths.get("resources/menu.csv");
+        Path bpath = Paths.get("resources/burger.csv");
+        Path ppath = Paths.get("resources/pizza.csv");
+        Path hpath = Paths.get("resources/hotdog.csv");
         List<JunkFood> burgersFromFile;
         List<JunkFood> pizzasFromFile;
         List<JunkFood> hotdogsFromFile;
