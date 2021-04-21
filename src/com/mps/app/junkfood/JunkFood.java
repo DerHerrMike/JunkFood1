@@ -19,14 +19,6 @@ public abstract class JunkFood {
         this.price = price;
     }
 
-    public void printAttributes() {
-
-        System.out.println("Produkt: " + getName());
-        System.out.println("Preis EUR: " + getPrice());
-        System.out.println("Kalorien: " + getCalories());
-    }
-
-
     protected abstract void create(Scanner scanner) throws Exception;
 
     protected abstract void writeFile (Path path) throws IOException;

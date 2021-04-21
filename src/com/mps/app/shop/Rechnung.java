@@ -41,7 +41,6 @@ public class Rechnung {
         String name;
         String price;
         double gross = 0;
-        Bestellung o = new Bestellung();
         for (JunkFood junkFood : productsOrdered) {
             if (junkFood instanceof Burger) {
                 item = "Burger";
@@ -135,7 +134,7 @@ public class Rechnung {
         return turnoverGrossExFile;
     }
 
-    public double calcLoadedTurnover(List<Double> turnover){
+    public double calcLoadedTurnover(List<Double> turnover) {
         double turnoverAmount = 0;
         for (Double aDouble : turnover) {
             turnoverAmount = turnoverAmount + aDouble;
@@ -143,11 +142,11 @@ public class Rechnung {
         return turnoverAmount;
     }
 
-    public void displayTurnover(double turnoverAmount, Scanner scanner){
+    public void displayTurnover(double turnoverAmount, Scanner scanner) {
 
         System.out.println();
         System.out.println("*******************************************************************");
-        System.out.println("Der bisherige Gesamtumsatz ohne Lieferkosten beträgt EUR: "+turnoverAmount);
+        System.out.println("Der bisherige Gesamtumsatz ohne Lieferkosten beträgt EUR: " + turnoverAmount);
         System.out.println("*******************************************************************");
         System.out.println();
         System.out.println("Zurück mit Enter!");

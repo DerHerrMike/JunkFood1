@@ -87,13 +87,9 @@ public class HotDog extends JunkFood {
                     allHotdogsFromMenuFile.add(hotDog);
                     line = bufferedReader.readLine();
                 }
-
-
             }
         }
         return allHotdogsFromMenuFile;
-
-
     }
 
     @Override

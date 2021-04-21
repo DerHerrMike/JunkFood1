@@ -30,7 +30,7 @@ public class Burger extends JunkFood {
 
     @Override
     public void create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
-        Path path = Paths.get("C:\\Nerdwest\\JunkFood Excercise Fabien\\src\\com\\mps\\app\\output\\burger.csv");
+        Path path = Paths.get("resources/burger.csv");
         scanner.nextLine();
         System.out.println();
         System.out.println("BURGER ERSTELLEN");
@@ -58,6 +58,42 @@ public class Burger extends JunkFood {
         Burger b = new Burger(getName(), getCalories(), getPrice(), getSize(), isCheese());
         b.writeFile(path);
         burgersCreated.add(b);
+    }
+
+    public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
+
+
+        List<JunkFood> allBurgersFromMenuFile = new ArrayList<>();
+
+        if (Files.size(path) < 1) {
+            System.out.println("return null");
+            return null;
+        } else {
+
+            try (BufferedReader bufferedReader = FileUtils.getReader(path)) {
+                String line = FileUtils.skipBOM(bufferedReader.readLine());
+                while (line != null) {
+                    String[] ausgeleseneZeile = line.split(",");
+                    //BurgerName
+                    String name = ausgeleseneZeile[0];
+                    //B Calories
+                    int calories = Integer.parseInt(ausgeleseneZeile[1]);
+                    //B Price
+                    double price = Double.parseDouble(ausgeleseneZeile[2]);
+                    //B Size
+                    int size = Integer.parseInt(ausgeleseneZeile[3]);
+                    //B isCheese
+                    boolean cheese = Boolean.parseBoolean(ausgeleseneZeile[4]);
+                    Burger burger = new Burger(name, calories, price, size, cheese);
+                    allBurgersFromMenuFile.add(burger);
+                    line = bufferedReader.readLine();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return allBurgersFromMenuFile;
     }
 
     @Override
@@ -100,42 +136,6 @@ public class Burger extends JunkFood {
         }
     }
 
-    public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
-
-
-        List<JunkFood> allBurgersFromMenuFile = new ArrayList<>();
-
-        if (Files.size(path) < 1) {
-            System.out.println("return null");
-            return null;
-        } else {
-
-            try (BufferedReader bufferedReader = FileUtils.getReader(path)) {
-                String line = FileUtils.skipBOM(bufferedReader.readLine());
-                while (line != null) {
-                    String[] ausgeleseneZeile = line.split(",");
-                    //BurgerName
-                    String name = ausgeleseneZeile[0];
-                    //B Calories
-                    int calories = Integer.parseInt(ausgeleseneZeile[1]);
-                    //B Price
-                    double price = Double.parseDouble(ausgeleseneZeile[2]);
-                    //B Size
-                    int size = Integer.parseInt(ausgeleseneZeile[3]);
-                    //B isCheese
-                    boolean cheese = Boolean.parseBoolean(ausgeleseneZeile[4]);
-                    Burger burger = new Burger(name, calories, price, size, cheese);
-                    allBurgersFromMenuFile.add(burger);
-                    line = bufferedReader.readLine();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return allBurgersFromMenuFile;
-    }
-
     @Override
     public void writeFile(Path path) throws IOException {
         String object = convert();
@@ -150,16 +150,14 @@ public class Burger extends JunkFood {
                 StandardOpenOption.APPEND);
     }
 
-
-
-    public String convertCheese(){
+    public String convertCheese() {
         boolean cheese = isCheese();
-        if (cheese){
+        if (cheese) {
             return "mit Käse";
-        }else return "ohne Käse";
+        } else return "ohne Käse";
     }
 
-
+    //G&S
     public int getSize() {
         return size;
     }

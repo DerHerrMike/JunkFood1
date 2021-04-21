@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Pizza extends JunkFood{
+public class Pizza extends JunkFood {
 
-private int durchmesser;
-private boolean isVeggy;
-private List<Pizza> pizzasCreated = new ArrayList<>();
+    private int durchmesser;
+    private boolean isVeggy;
+    private List<Pizza> pizzasCreated = new ArrayList<>();
 
     public Pizza() {
     }
@@ -52,10 +52,10 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
         scanner.nextLine();
         System.out.println("Extra Käse (j/n): ");
         String veggieSelected = scanner.nextLine();
-        if (veggieSelected.equalsIgnoreCase("j")){
+        if (veggieSelected.equalsIgnoreCase("j")) {
             setVeggy(true);
         }
-        Pizza p = new Pizza(getName(), getCalories(), getPrice(), getDurchmesser(),isVeggy());
+        Pizza p = new Pizza(getName(), getCalories(), getPrice(), getDurchmesser(), isVeggy());
         p.writeFile(path);
         pizzasCreated.add(p);
     }
@@ -97,7 +97,6 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
     }
 
 
-
     @Override
     public void writeFile(Path path) throws IOException {
         String object = convert();
@@ -112,11 +111,11 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
                 StandardOpenOption.APPEND);
     }
 
-    public String convertVeggy(){
+    public String convertVeggy() {
         boolean veggy = isVeggy();
-        if (veggy){
+        if (veggy) {
             return "ja";
-        }else return "nein";
+        } else return "nein";
     }
 
     @Override
@@ -127,9 +126,9 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
                 "," +
                 this.getPrice() +
                 "," +
-                this.getDurchmesser()+
+                this.getDurchmesser() +
                 "," +
-                this.convertVeggy()+
+                this.convertVeggy() +
                 "\n";
     }
 
@@ -155,21 +154,6 @@ private List<Pizza> pizzasCreated = new ArrayList<>();
 
             System.out.println();
         }
-    }
-
-    @Override
-    public void setCalories(int calories) {
-        super.setCalories(calories);
-    }
-
-    @Override
-    public double getPrice() {
-        return super.getPrice();
-    }
-
-    @Override
-    public void setPrice(double price) {
-        super.setPrice(price);
     }
 
     // G & S

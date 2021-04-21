@@ -22,7 +22,6 @@ public class Driver {
         Lieferung l = new Lieferung();
         Rechnung r = new Rechnung();
         Scanner scanner = new Scanner(System.in);
-
         //relativerpfad unter project root/resources
         Path path = Paths.get("resources/turnover.csv");
         Path bpath = Paths.get("resources/burger.csv");
@@ -41,13 +40,10 @@ public class Driver {
         switch (identity) {
             case 1 -> {   //Customer
                 while (!quit) {
-                    int choice = getChoiceCustomer( scanner);
+                    int choice = displayChoiceCustomer(scanner);
                     switch (choice) {
 
-                        case 1 -> {
-                            loadMenu(b, p, h, bpath, ppath, hpath);
-                            System.out.println("Alle verfügbaren Produkte ausgegeben! Zurück mit Enter!");
-                        }
+                        case 1 -> loadMenu(b, p, h, bpath, ppath, hpath);
                         case 2 -> {
                             burgersFromFile = b.readAllLinesFromFileInList(bpath);
                             pizzasFromFile = p.readAllLinesFromFileinList(ppath);
@@ -63,7 +59,7 @@ public class Driver {
                                 } else {
                                     Bestellung.displayOrder(o, productsOrdered, time);
                                 }
-                                r.saveOrderToFile( productsOrdered);
+                                r.saveOrderToFile(productsOrdered);
                             } else {
                                 System.out.println("Kein Produkt bestellt. Weiter mit Enter!");
                                 scanner.nextLine();
@@ -80,7 +76,7 @@ public class Driver {
             case 2 -> {//admin
                 while (!quit) {
 
-                    int choice = getChoiceAdmin(scanner);
+                    int choice = displayChoiceAdmin(scanner);
                     switch (choice) {
                         case 1 -> b.create(scanner);
                         case 2 -> p.create(scanner);
@@ -89,10 +85,7 @@ public class Driver {
                             loadMenu(b, p, h, bpath, ppath, hpath);
                             System.out.println("Alle verfügbaren Produkte ausgegeben! Zurück mit Enter!");
                         }
-                        case 5 -> {
-
-                            r.displayTurnover(r.calcLoadedTurnover(r.loadTurnover(path)), scanner);
-                        }
+                        case 5 -> r.displayTurnover(r.calcLoadedTurnover(r.loadTurnover(path)), scanner);
                         case 9 -> {
                             System.out.println("Programm wird beendet.");
                             quit = true;
@@ -104,7 +97,52 @@ public class Driver {
         }
     }
 
-    private static int getChoiceCustomer(Scanner scanner) {
+    public static void printWelcome() {
+        System.out.println();
+        String output = """
+                                                        
+                    WILLKOMMEN BEI MEGA MIKE         
+                   
+                ** ekliges Junkfood - mega fett **
+                   
+                    """;
+        System.out.println(output);
+    }
+
+
+    public static int identifyUser(Scanner scanner) {
+
+        int caseNum;
+        while (true) {
+            System.out.println();
+            System.out.println("Wähle den Anwendungsfall. 1 für Kunde oder 2 für Administrator");
+            String useCase = scanner.nextLine();
+
+            while (!(useCase.equals("1") || useCase.equals("2"))) {
+                System.out.println("Bitte ganzzahligen Wert 1 oder 2 wählen!");
+                useCase = scanner.nextLine();
+            }
+            caseNum = Integer.parseInt(useCase);
+            if (caseNum == 1) {
+                return 1;
+            } else {
+                System.out.println("Bitte Admin Passwort eingeben oder zurück mit 'exit': ");
+                String pw = scanner.nextLine();
+                switch (pw) {
+                    case "Fett" -> {
+                        return 2;
+                    }
+                    case "exit" -> identifyUser(scanner);
+                    default -> {
+                        System.out.println("Ungültiges Passwort! Zurück mit Enter!");
+                        scanner.nextLine();
+                    }
+                }
+            }
+        }
+    }
+
+    private static int displayChoiceCustomer(Scanner scanner) {
 
         int choice = 9;
         boolean correctSelection = false;
@@ -134,7 +172,7 @@ public class Driver {
         return choice;
     }
 
-    private static int getChoiceAdmin(Scanner scanner) {
+    private static int displayChoiceAdmin(Scanner scanner) {
 
         int choice = 9;
         boolean correctSelection = false;
@@ -152,7 +190,7 @@ public class Driver {
             System.out.println("Bitte Auswahl im Programm-Menü treffen (1, 2, 3, 4, 9): ");
             String selection = scanner.nextLine();
 
-            if (selection.equals("0") || selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("5") ||selection.equals("9")) {
+            if (selection.equals("0") || selection.equals("1") || selection.equals("2") || selection.equals("3") || selection.equals("4") || selection.equals("5") || selection.equals("9")) {
                 choice = Integer.parseInt(selection);
                 correctSelection = true;
             } else {
@@ -167,60 +205,13 @@ public class Driver {
         return choice;
     }
 
-    public static void printWelcome() {
-        System.out.println();
-        String output = """
-                                                        
-                    WILLKOMMEN BEI MEGA MIKE         
-                   
-                ** ekliges Junkfood - mega fett **
-                   
-                    """;
-        System.out.println(output);
-    }
-
-
-    public static int identifyUser(Scanner scanner) {
-
-        int caseNum;
-
-        while (true) {
-            System.out.println();
-            System.out.println("Wähle den Anwendungsfall. 1 für Kunde oder 2 für Administrator");
-            String useCase = scanner.nextLine();
-
-            while (!(useCase.equals("1") || useCase.equals("2"))) {
-                System.out.println("Bitte ganzzahligen Wert 1 oder 2 wählen!");
-                useCase = scanner.nextLine();
-            }
-
-            caseNum = Integer.parseInt(useCase);
-
-            if (caseNum == 1) {
-                return 1;
-            } else {
-                System.out.println("Bitte Admin Passwort eingeben oder zurück mit 'exit': ");
-                String pw = scanner.nextLine();
-                switch (pw) {
-                    case "Fett" -> {
-                        return 2;
-                    }
-                    case "exit" -> identifyUser(scanner);
-                    default -> {
-                        System.out.println("Ungültiges Passwort! Zurück mit Enter!");
-                        scanner.nextLine();
-                    }
-                }
-            }
-        }
-    }
-
     private static void loadMenu(Burger b, Pizza p, HotDog h, Path bpath, Path ppath, Path hpath) throws IOException {
         System.out.println();
         System.out.println("Die Speisekarte wurde geladen!");
         b.displayJunkFood(b.readAllLinesFromFileInList(bpath));
         p.displayJunkFood(p.readAllLinesFromFileinList(ppath));
         h.displayJunkFood(h.readAllLinesFromFileInList(hpath));
+        System.out.println();
+        System.out.println("Alle verfügbaren Produkte ausgegeben! Zurück mit Enter!");
     }
-
 }

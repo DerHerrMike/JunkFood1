@@ -11,7 +11,7 @@ public class Lieferung {
     }
 
 
-    public int deliveryRand(){
+    public int deliveryRand() {
 
         Random r = new Random();
         return (r.nextInt(30) + 20);
@@ -22,8 +22,8 @@ public class Lieferung {
 
         if (bestellung.getMinimumDeliveryAmount() <= bestellung.getGross()) {
             return bestellung.getGross();
-        }else{
-            total = bestellung.getGross()+getDeliveryCosts();
+        } else {
+            total = bestellung.getGross() + getDeliveryCosts();
         }
         return total;
     }

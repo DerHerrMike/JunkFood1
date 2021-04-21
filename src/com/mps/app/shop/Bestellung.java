@@ -197,7 +197,6 @@ public class Bestellung {
     }
 
 
-
     public static void displayOrder(Bestellung o, List<JunkFood> productsOrdered, int time) {
         System.out.println();
         System.out.println("************************************************");
@@ -262,7 +261,6 @@ public class Bestellung {
     public double getMinimumDeliveryAmount() {
         return 14.90;
     }
-
 
     public void setOrder(List<JunkFood> order, JunkFood product) {
         order.add(product);
