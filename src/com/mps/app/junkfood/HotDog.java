@@ -1,7 +1,6 @@
 package com.mps.app.junkfood;
 
 import com.mps.app.util.FileUtils;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * CLass for hotdogs as JF objects.
+ */
 public class HotDog extends JunkFood {
 
     private String sausageName;
@@ -19,38 +21,51 @@ public class HotDog extends JunkFood {
     private List<HotDog> hotdogCreated = new ArrayList<>();
 
 
+    /**
+     * Hotdog constructor with all fields as parameters
+     * @param name name of hot dog
+     * @param calories calories of hot dog
+     * @param price price of hot dog
+     * @param sausageName name of sausage in hot dog
+     * @param xxl is it xxl?
+     */
     public HotDog(String name, int calories, double price, String sausageName, boolean xxl) {
         super(name, calories, price);
         this.sausageName = sausageName;
         this.xxl = xxl;
     }
 
+    /**
+     * HotDog default constructor
+     */
     public HotDog() {
 
     }
-
+    /**
+     * implements the abstract create method to create a hot dog object
+     * adds burger to list
+     * @param scanner
+     * @throws IOException
+     */
     @Override
-    public void create(Scanner scanner) throws Exception {       //inputmismatch catch fehlt hier
+    public void create(Scanner scanner) throws Exception {
         Path path = Paths.get("resources/hotdog.csv");
         scanner.nextLine();
         System.out.println("HotDog Name: ");
         String name = scanner.nextLine();
         setName(name);
         System.out.println("Kalorien: ");
-        int calories = scanner.nextInt();
+        int calories = Integer.parseInt( scanner.nextLine());
         setCalories(calories);
-        scanner.nextLine();
         System.out.println("Preis:");
-        double price = scanner.nextDouble();
+        double price = Double.parseDouble(scanner.nextLine());
         setPrice(price);
-        scanner.nextLine();
         System.out.println("Wurst wählen (1 für Frankfurter, 2 für Bratwurst): ");
-        int sausage = scanner.nextInt();
+        int sausage = Integer.parseInt( scanner.nextLine());
         switch (sausage) {
             case 1 -> setSausageName("Frankfurter");
             case 2 -> setSausageName("Bratwurst");
         }
-        scanner.nextLine();
         System.out.println("XXL (j/n): ");
         String cheeseSelected = scanner.nextLine();
         if (cheeseSelected.equalsIgnoreCase("j")) {
@@ -61,6 +76,12 @@ public class HotDog extends JunkFood {
         hotdogCreated.add(h);
     }
 
+    /**
+     * reads out file of saved hotdogs and adds it to list
+     * @param path path to csv file with saved objects
+     * @return list of hotdogs to work with
+     * @throws IOException
+     */
     public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
         List<JunkFood> allHotdogsFromMenuFile = new ArrayList<>();
 
@@ -91,7 +112,11 @@ public class HotDog extends JunkFood {
         }
         return allHotdogsFromMenuFile;
     }
-
+    /**
+     * implements the write method burgers
+     * @param path path to hotdogs csv file
+     * @throws IOException
+     */
     @Override
     public void writeFile(Path path) throws IOException {
         String object = convert();
@@ -106,7 +131,10 @@ public class HotDog extends JunkFood {
                 StandardOpenOption.APPEND);
     }
 
-
+    /**
+     * implements the abstract method
+     * @return String of attributes of hotdogs
+     */
     @Override
     public String convert() {
         return this.getName() +
@@ -128,6 +156,10 @@ public class HotDog extends JunkFood {
         } else return "Nein";
     }
 
+    /**
+     * implements the display method for hotdogs
+     * @param products Lists of hotdogs loaded from file
+     */
     @Override
     public void displayJunkFood(List<JunkFood> products) {
 
@@ -152,18 +184,36 @@ public class HotDog extends JunkFood {
     }
 
     //G & S
+
+
+    /**
+     * get name of sausage for hotdog
+     * @return name of sausage
+     */
     public String getSausageName() {
         return sausageName;
     }
 
+    /**
+     * setter method for sausageName
+     * @param sausageName the name of the selected sausage
+     */
     public void setSausageName(String sausageName) {
         this.sausageName = sausageName;
     }
 
+    /**
+     * get info on xxl
+     * @return xxl true or false
+     */
     public boolean isXxl() {
         return xxl;
     }
 
+    /**
+     * setter method for xxl
+     * @param xxl make it xxl
+     */
     public void setXxl(boolean xxl) {
         this.xxl = xxl;
     }

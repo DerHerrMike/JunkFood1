@@ -1,7 +1,6 @@
 package com.mps.app.junkfood;
 
 import com.mps.app.util.FileUtils;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,9 +8,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class for Burger as JF object
+ * @author MikeSchwingenschlögl
+ */
 public class Burger extends JunkFood {
 
     private int size;
@@ -19,17 +23,34 @@ public class Burger extends JunkFood {
     private List<Burger> burgersCreated = new ArrayList<>();
 
 
+    /**
+     * Burger default constructor
+     */
     public Burger() {
     }
 
+    /**
+     * Burger constructor with all fields as parameters
+     * @param name name of burgers
+     * @param calories calories of burgers
+     * @param price price of burgers
+     * @param size additional size of burgers
+     * @param cheese additional cheese in burgers
+     */
     public Burger(String name, int calories, double price, int size, boolean cheese) {
         super(name, calories, price);
         this.size = size;
         this.cheese = cheese;
     }
 
+    /**
+     * implements the abstract create method to create a burger object
+     * adds burger to list
+     * @param scanner
+     * @throws IOException
+     */
     @Override
-    public void create(Scanner scanner) throws IOException {       //inputmismatch catch fehlt hier
+    public void create(Scanner scanner) throws IOException {
         Path path = Paths.get("resources/burger.csv");
         scanner.nextLine();
         System.out.println();
@@ -39,15 +60,14 @@ public class Burger extends JunkFood {
         String name = scanner.nextLine();
         setName(name);
         System.out.println("Kalorien: ");
-        int calories = scanner.nextInt();
-        scanner.nextLine();
+        int calories = Integer.parseInt( scanner.nextLine());
         setCalories(calories);
         System.out.println("Preis:");
-        double price = scanner.nextDouble();
+        double price = Double.parseDouble(scanner.nextLine());
         scanner.nextLine();
         setPrice(price);
         System.out.println("Größe (1 für Standard, 2 für Super, 3 für Mega): ");
-        int sizeSelection = scanner.nextInt();
+        int sizeSelection = Integer.parseInt( scanner.nextLine());
         scanner.nextLine();
         setSize(sizeSelection);
         System.out.println("Extra Käse (j/n): ");
@@ -60,6 +80,12 @@ public class Burger extends JunkFood {
         burgersCreated.add(b);
     }
 
+    /**
+     * reads out file of saved burgers and adds it to list
+     * @param path path to csv file with saved objects
+     * @return list of burgers to work with
+     * @throws IOException
+     */
     public List<JunkFood> readAllLinesFromFileInList(Path path) throws IOException {
 
 
@@ -67,7 +93,7 @@ public class Burger extends JunkFood {
 
         if (Files.size(path) < 1) {
             System.out.println("return null");
-            return null;
+            return Collections.emptyList();
         } else {
 
             try (BufferedReader bufferedReader = FileUtils.getReader(path)) {
@@ -96,6 +122,10 @@ public class Burger extends JunkFood {
         return allBurgersFromMenuFile;
     }
 
+    /**
+     * implements the abstract method
+     * @return String of attributes of burgers
+     */
     @Override
     public String convert() {
 
@@ -111,6 +141,10 @@ public class Burger extends JunkFood {
                 "\n";
     }
 
+    /**
+     * implements the display method for burgers
+     * @param products Lists of burgers loaded from file
+     */
     @Override
     public void displayJunkFood(List<JunkFood> products) {
 
@@ -136,6 +170,11 @@ public class Burger extends JunkFood {
         }
     }
 
+    /**
+     * implements the write method burgers
+     * @param path path to burger csv file
+     * @throws IOException
+     */
     @Override
     public void writeFile(Path path) throws IOException {
         String object = convert();
@@ -150,6 +189,10 @@ public class Burger extends JunkFood {
                 StandardOpenOption.APPEND);
     }
 
+    /**
+     * converts cheese selection to String
+     * @return String with cheese or without
+     */
     public String convertCheese() {
         boolean cheese = isCheese();
         if (cheese) {
@@ -158,18 +201,35 @@ public class Burger extends JunkFood {
     }
 
     //G&S
+
+    /**
+     * get burger size
+     * @return size of burger
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * setter method for burger size
+     * @param size the selected size of burger
+     */
     public void setSize(int size) {
         this.size = size;
     }
 
+    /**
+     * get info on cheese
+     * @return cheese true or false
+     */
     public boolean isCheese() {
         return cheese;
     }
 
+    /**
+     * setter method for added cheese
+     * @param cheese added cheese
+     */
     public void setCheese(boolean cheese) {
         this.cheese = cheese;
     }

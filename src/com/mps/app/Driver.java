@@ -2,7 +2,6 @@ package com.mps.app;
 
 import com.mps.app.junkfood.*;
 import com.mps.app.shop.*;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,6 +9,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * main driver class
+ * @author MikeSchwingenschlögl
+ */
 public class Driver {
 
 
@@ -22,7 +25,7 @@ public class Driver {
         Lieferung l = new Lieferung();
         Rechnung r = new Rechnung();
         Scanner scanner = new Scanner(System.in);
-        //relativerpfad unter project root/resources
+        //relativer pfad unter project root/resources
         Path path = Paths.get("resources/turnover.csv");
         Path bpath = Paths.get("resources/burger.csv");
         Path ppath = Paths.get("resources/pizza.csv");
@@ -31,33 +34,34 @@ public class Driver {
         List<JunkFood> pizzasFromFile;
         List<JunkFood> hotdogsFromFile;
         List<JunkFood> productsOrdered;
-        if (Files.notExists(path)) {
+        if (Files.notExists(path)) {    // check and create
             Files.createFile(path);
         }
         boolean quit = false;
         printWelcome();
-        int identity = identifyUser(scanner);
+        int identity = identifyUser(scanner);   // Admin or customer as user
         switch (identity) {
             case 1 -> {   //Customer
                 while (!quit) {
-                    int choice = displayChoiceCustomer(scanner);
+                    int choice = displayChoiceCustomer(scanner); // selection menu for customer
                     switch (choice) {
 
-                        case 1 -> loadMenu(b, p, h, bpath, ppath, hpath);
-                        case 2 -> {
+                        case 1 -> loadMenu(b, p, h, bpath, ppath, hpath);   //display available burgers, pizzas, hotdogs
+                        case 2 -> { //load saved objects from files into lists
                             burgersFromFile = b.readAllLinesFromFileInList(bpath);
                             pizzasFromFile = p.readAllLinesFromFileinList(ppath);
                             hotdogsFromFile = h.readAllLinesFromFileInList(hpath);
                             o.menu(b, p, h, burgersFromFile, pizzasFromFile, hotdogsFromFile);
-                            productsOrdered = o.ordering(burgersFromFile, pizzasFromFile, hotdogsFromFile);
-                            l.setDeliverytime(l.deliveryRand());
+                            productsOrdered = o.ordering(burgersFromFile, pizzasFromFile, hotdogsFromFile); // call ordering method
+                            l.setDeliverytime(l.deliveryRand());    // call deliverytime
                             int time = l.getDeliverytime();
                             double total = l.getTotal(o);
-                            if (total > 4) {
-                                if (total < o.getMinimumDeliveryAmount()) {
-                                    Bestellung.displayOrderBelowDelivery(o, l, productsOrdered, time);
+
+                            if (total > 4) {    //check if an order has been placed and save it to file
+                                if (total < o.getFreeDeliveryAmount()) {
+                                    o.displayOrderBelowDelivery( l,productsOrdered,time);
                                 } else {
-                                    Bestellung.displayOrder(o, productsOrdered, time);
+                                    o.displayOrder(productsOrdered,  time);
                                 }
                                 r.saveOrderToFile(productsOrdered);
                             } else {
@@ -65,7 +69,7 @@ public class Driver {
                                 scanner.nextLine();
                             }
                         }
-                        case 9 -> {
+                        case 9 -> { //exit
                             System.out.println("Danke, dass du bei MegaMike vorbeigeschaut hast! Programm wird beendet.");
                             quit = true;
                         }
@@ -73,20 +77,20 @@ public class Driver {
                     }
                 }
             }
-            case 2 -> {//admin
+            case 2 -> {//admin from identifyUser
                 while (!quit) {
 
-                    int choice = displayChoiceAdmin(scanner);
+                    int choice = displayChoiceAdmin(scanner);   // display admin menu
                     switch (choice) {
-                        case 1 -> b.create(scanner);
-                        case 2 -> p.create(scanner);
-                        case 3 -> h.create(scanner);
-                        case 4 -> {
+                        case 1 -> b.create(scanner);    // creates burger
+                        case 2 -> p.create(scanner);    // creates pizza
+                        case 3 -> h.create(scanner);    // creates hotdog
+                        case 4 -> { // display available JF objects loaded
                             loadMenu(b, p, h, bpath, ppath, hpath);
                             System.out.println("Alle verfügbaren Produkte ausgegeben! Zurück mit Enter!");
                         }
-                        case 5 -> r.displayTurnover(r.calcLoadedTurnover(r.loadTurnover(path)), scanner);
-                        case 9 -> {
+                        case 5 -> r.displayTurnover(r.calcLoadedTurnover(r.loadTurnover(path)), scanner);   //calculates and displays the turnover so far
+                        case 9 -> { //exit program
                             System.out.println("Programm wird beendet.");
                             quit = true;
                         }
@@ -97,6 +101,9 @@ public class Driver {
         }
     }
 
+    /**
+     * displays welcome message
+     */
     public static void printWelcome() {
         System.out.println();
         String output = """
@@ -110,6 +117,11 @@ public class Driver {
     }
 
 
+    /**
+     * selsct admin or customer, check password
+     * @param scanner
+     * @return selection of admin or customer
+     */
     public static int identifyUser(Scanner scanner) {
 
         int caseNum;
@@ -128,7 +140,7 @@ public class Driver {
             } else {
                 System.out.println("Bitte Admin Passwort eingeben oder zurück mit 'exit': ");
                 String pw = scanner.nextLine();
-                switch (pw) {
+                switch (pw) {   // checks admin password
                     case "Fett" -> {
                         return 2;
                     }
@@ -142,6 +154,11 @@ public class Driver {
         }
     }
 
+    /**
+     * displays customer menu to select
+     * @param scanner
+     * @return customer selection
+     */
     private static int displayChoiceCustomer(Scanner scanner) {
 
         int choice = 9;
@@ -172,6 +189,11 @@ public class Driver {
         return choice;
     }
 
+    /**
+     * displays admin menu to select
+     * @param scanner
+     * @return admin selection
+     */
     private static int displayChoiceAdmin(Scanner scanner) {
 
         int choice = 9;
@@ -205,6 +227,16 @@ public class Driver {
         return choice;
     }
 
+    /**
+     * loads all JF items from the csv files into lists
+     * @param b burger class reference
+     * @param p pizza class reference
+     * @param h hotdog class reference
+     * @param bpath path to burger csv
+     * @param ppath path to pizza csv
+     * @param hpath path to hotdog csv
+     * @throws IOException
+     */
     private static void loadMenu(Burger b, Pizza p, HotDog h, Path bpath, Path ppath, Path hpath) throws IOException {
         System.out.println();
         System.out.println("Die Speisekarte wurde geladen!");
